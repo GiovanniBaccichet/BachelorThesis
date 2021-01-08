@@ -275,5 +275,8 @@ TSWLatexianTemp*
 # Makeindex log files
 *.lpz
 
+# VS Code and macOS files
 .vscode
 .DS_Store
+__latexindent_temp.pdf
+__latexindent_temp.tex
