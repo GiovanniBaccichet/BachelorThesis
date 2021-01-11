@@ -2,7 +2,7 @@
 %                               PACKAGES
 % -----------------------------------------------------------------------
 
-\usepackage[paperheight=29.7cm,paperwidth=21cm,outer=1.5cm,inner=2.5cm,top=2cm,bottom=2cm]{geometry} 
+\usepackage[paperheight=29.7cm,paperwidth=21cm,outer=1.5cm,inner=2.5cm,top=2cm,bottom=2cm]{geometry}
 \usepackage[english]{babel}
 \usepackage[utf8x]{inputenc}
 \usepackage[T1]{fontenc}
@@ -17,7 +17,16 @@
 \usepackage{setspace}
 \singlespacing
 
+% DRAFT background
+\usepackage{background}
+\backgroundsetup{contents=DRAFT}
+
 % Code listing
+%\usepackage{fontspec}
+%\setmonofont[
+%  Contextuals={Alternate}
+%]{Fira Code}
+
 \usepackage{listings}
 %\usepackage{pxfonts}
 \lstset{language=Python,
