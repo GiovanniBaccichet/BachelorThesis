@@ -280,3 +280,6 @@ TSWLatexianTemp*
 .DS_Store
 __latexindent_temp.pdf
 __latexindent_temp.tex
+
+# Final version on releases
+thesis.pdf
