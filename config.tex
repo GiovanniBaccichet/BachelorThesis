@@ -17,6 +17,8 @@
 \usepackage{setspace}
 \singlespacing
 
+\usepackage{fontawesome}
+
 % DRAFT background
 \usepackage{background}
 \backgroundsetup{contents=DRAFT}
@@ -65,9 +67,14 @@
 
 \definecolor{gray75}{gray}{0.75}
 
-% Fancy TOC title
+% Fancy TOC
 \renewcommand\cftchapfont{\normalfont}
 \renewcommand\cftchappagefont{\normalfont}
+\renewcommand{\cftchapafterpnum}{\vskip 5pt}
+\renewcommand\cftsecafterpnum{\vskip 5pt}
+\renewcommand\cftsubsecafterpnum{\vskip 5pt}
+\setlength\cftbeforesecskip{0pt}
+\setlength\cftbeforesubsecskip{0pt}
 
 \AtBeginDocument{\renewcommand\contentsname{Table of Contents}}
 
