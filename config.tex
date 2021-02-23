@@ -18,6 +18,11 @@
 \singlespacing
 
 \usepackage{fontawesome}
+% Needed to have different sizes for fontawesome
+\DeclareFontFamily{U}{fontawesomeOne}{}
+\DeclareFontShape{U}{fontawesomeOne}{m}{n}
+  {<-> FontAwesome--fontawesomeone}{}
+\DeclareRobustCommand\FAone{\fontencoding{U}\fontfamily{fontawesomeOne}\selectfont}
 
 % DRAFT background
 \usepackage{background}
@@ -60,6 +65,8 @@
 
 % Black and white images
 \usepackage{graphicx}
+
+\usepackage{lipsum} % To be removed
 
 % -----------------------------------------------------------------------
 %                             FANCY TITLES
