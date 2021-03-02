@@ -2,7 +2,7 @@
 \label{chap:intro}
 
 \lettrine[lines=3, findent=3pt, nindent=0pt]{G}{lobal} village was the term coined in the 1960s by the Canadian thinker H. Marshall McLuhan \cite{mcluhan1962} to describe the society after the birth of mass media: all parts of the World were brought together by the communication abilities given by technological advancement. \\
-
+Nowadays, with broad adoption of digital technologies, mass-communication represents the foundation of modern society, leading to concerns about privacy and security.
 
 
 
@@ -13,10 +13,13 @@
 \section{Problem}
 \label{sec:problem}
 
-Fast-forward 60 years and we find us in a technology-driven society
+The evolution of cyber-attack techniques, becoming more sophisticated than ever, poses a critical challenge in accurately and reliably detecting intrusions.\\ The first \textit{Intrusion Detection System} was proposed in 1980 \cite{Andreson1980} and since then the industry has arisen, but modern IDSs suffer mainly from two problems:
+\begin{itemize}
+    \item[\faCaretRight] \textit{False-alarm rate}: generating too many alerts for nonthreatening situations raises the burden for security analysts, and can cause harmful attacks to be ignored;
+    \item[\faCaretRight] \textit{Unknown attack detection}: attack variants and novel attacks emerge constantly and more and more frequently, hence the need of being able to detect unknown attacks.
+\end{itemize}
+If provided with sufficient training data, machine learning algorithms can detect both attack variants and novel ones. Another perk brought by machine learning models is that they do not rely heavily on domain knowledge, and so have a more lightweight design \cite{Liu2019}. \\ With that in mind, in order to achieve well grounded results, it is necessary to know which network features represent which attack and what data is sustainable for detecting certain types of attacks. Furthermore a comprehensive analysis of machine learning algorithms is needed for identifying the most suitable one for the implementation.
 
-See paper \cite{lallie2020cyber} and \cite{Lin2018}
-\lipsum[1-3]
 
 %----------------------------------------------------
 % GOAL
@@ -25,7 +28,8 @@ See paper \cite{lallie2020cyber} and \cite{Lin2018}
 \section{Objectives}
 \label{sec:objectives}
 
-\lipsum[1-2]
+\lipsum[1-2] \\
+In order to solve the problems displayed above, it would be helpful to use machine learning algorithms to improve the accuracy of threats-detection, with flexible and dynamic monitoring of the network.
 
 %----------------------------------------------------
 % DELIMITATION
