@@ -13,10 +13,10 @@ Nowadays, with broad adoption of digital technologies, mass-communication repres
 \section{Problem}
 \label{sec:problem}
 
-The evolution of cyber-attack techniques, becoming more sophisticated than ever, poses a critical challenge in accurately and reliably detecting intrusions.\\ The first \textit{Intrusion Detection System} (IDS) was proposed in 1980 \cite{Andreson1980} and since then the industry has arisen, but modern IDSs aren't still perfect and suffer mainly from two problems:
+The evolution of cyber-attack techniques, becoming more sophisticated than ever, poses a critical challenge in accurately and reliably detecting intrusions.\\ The first \gls{ids} was proposed in 1980 \cite{Andreson1980} and since then the industry has arisen, but modern \glsxtrshortpl{ids} aren't still perfect and suffer mainly from two problems:
 \begin{itemize}
     \item[\faCaretRight] \textit{False-alarm rate}: generating too many alerts for nonthreatening situations raises the burden for security analysts, and can cause harmful attacks to be ignored;
-    \item[\faCaretRight] \textit{Unknown attack detection}: attack variants and novel attacks emerge constantly and more and more frequently, hence the need of being able to detect unknown attacks. Some IDSs rely on the signatures of known attacks and cannot identify new threats \cite{Hodo2017}.
+    \item[\faCaretRight] \textit{Unknown attack detection}: attack variants and novel attacks emerge constantly and more and more frequently, hence the need of being able to detect unknown attacks. Some \glsxtrshortpl{ids} rely on the signatures of known attacks and cannot identify new threats \cite{Hodo2017}.
 \end{itemize}
 Researchers in this filed aim at having a high accuracy of detection and low false alarm rate. \\
 If provided with sufficient training data, machine learning algorithms can detect both attack variants and novel ones \cite{Hodo2017}. Another perk brought by machine learning models is that they do not rely heavily on domain knowledge, and so have a more lightweight design \cite{Khraisat2019}. \\ With that in mind, in order to achieve well grounded results, it is necessary to know which network features represent which attack \cite{Iglesias2015} and what data is sustainable for detecting certain types of attacks. Furthermore a comprehensive analysis of machine learning algorithms is needed for identifying the most suitable one for the implementation \cite{Liu2019}, alongside the dataset needed for its training \cite{Sharafaldin2019}.
@@ -33,11 +33,11 @@ In order to solve the problems displayed above, it would be helpful to use machi
 
 \begin{enumerate}
     \item Setting up a virtualized environment for testing purposes (this has to be scalable, to represent a realistic scenario);
-    \item Choosing an SDN Controller on which running as an application a monitoring software to gather data about network flow;
-    \item Identifying useful traffic features and extracting them with the chosen SDN Controller;
+    \item Choosing a \gls{sdn} Controller on which running, as an application, a monitoring software to gather data about network flow;
+    \item Identifying useful traffic features and extracting them with the chosen \glsxtrshort{sdn} Controller;
     \item Choosing a machine learning algorithm suitable for this use;
     \item Performing machine learning classification of the above extracted traffic features to detect malicious traffic;
-    \item Evaluating the performance of the IDS using an appropriate dataset.
+    \item Evaluating the performance of the \glsxtrshort{ids} using an appropriate dataset.
 \end{enumerate}
 Practically the first three points concern building a network monitor capable of saving traffic data. Such data will be analyzed by the software developed in the last three points.
 

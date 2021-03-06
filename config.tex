@@ -76,6 +76,16 @@
 \usepackage{lipsum} % To be removed
 
 % -----------------------------------------------------------------------
+%                             GLOSSARY
+% -----------------------------------------------------------------------
+
+\usepackage[acronym, numberedsection=autolabel]{glossaries-extra}
+\setglossarysection{chapter}
+\renewcommand{\glsfirstlongdefaultfont}[1]{\emph{#1}}
+\setabbreviationstyle[acronym]{long-short}
+\makenoidxglossaries
+
+% -----------------------------------------------------------------------
 %                             FANCY TITLES
 % -----------------------------------------------------------------------
 
