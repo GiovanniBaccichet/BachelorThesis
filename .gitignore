@@ -281,5 +281,8 @@ TSWLatexianTemp*
 __latexindent_temp.pdf
 __latexindent_temp.tex
 
+# Glossaries-extra temp file
+*.ist
+
 # Final version on releases
 thesis.pdf
