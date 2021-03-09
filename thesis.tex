@@ -53,14 +53,17 @@
 
     \bibliographystyle{plain}
     \bibliography{bibliography}
+    \pagenumbering{roman}
+
+    % ACRONYMS
+
+    \printnoidxglossaries
 
     % APPENDICES
 
     \appendix
-    \pagenumbering{roman}
-    \printnoidxglossaries
+    \part*{Appendices}
     \input{appendix/appendix1}
-
     \input{appendix/recycled}
 
 \end{document}

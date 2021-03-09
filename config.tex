@@ -11,6 +11,7 @@
 \usepackage[nottoc]{tocbibind}
 \usepackage{blindtext}
 \usepackage{color}
+\usepackage[table]{xcolor} % Table midrule color
 \usepackage{epsfig}
 \usepackage{plain}
 
@@ -28,12 +29,6 @@
 \usepackage{background}
 \backgroundsetup{contents=DRAFT}
 
-% Code listing
-%\usepackage{fontspec}
-%\setmonofont[
-%  Contextuals={Alternate}
-%]{Fira Code}
-
 \usepackage{listings}
 %\usepackage{pxfonts}
 \lstset{language=Python,
@@ -43,15 +38,26 @@
     morekeywords={include, printf}
 }
 
+\usepackage{chronology} % Timeline
+
 % -----------------------------------------------------------------------
-%                             DROP CAP
+%                                TABLES
+% -----------------------------------------------------------------------
+
+\usepackage{booktabs} % Beautiful tables
+\usepackage{tabularx} % Set table width
+\usepackage{multirow} % Multi row cells
+\newcolumntype{Y}{>{\raggedright\arraybackslash}X}
+
+% -----------------------------------------------------------------------
+%                             FONT & DROP CAPs
 % -----------------------------------------------------------------------
 
 % Drop cap implementation
 \usepackage{type1cm}
 \usepackage{lettrine}
-%\usepackage{mathptmx} Times New Roman
-\usepackage{lmodern} 
+%\usepackage{mathptmx} % Times New Roman
+\usepackage{lmodern} % Font used for the document
 
 % -----------------------------------------------------------------------
 %                             REFERENCES
@@ -76,17 +82,17 @@
 \usepackage{lipsum} % To be removed
 
 % -----------------------------------------------------------------------
-%                             GLOSSARY
+%                             	GLOSSARY
 % -----------------------------------------------------------------------
 
-\usepackage[acronym, numberedsection=autolabel]{glossaries-extra}
-\setglossarysection{chapter}
+\usepackage[acronym, toc]{glossaries-extra}
+%\setglossarysection{chapter}
 \renewcommand{\glsfirstlongdefaultfont}[1]{\emph{#1}}
 \setabbreviationstyle[acronym]{long-short}
 \makenoidxglossaries
 
 % -----------------------------------------------------------------------
-%                             FANCY TITLES
+%                             FANCY TITLES and ToC
 % -----------------------------------------------------------------------
 
 \definecolor{gray75}{gray}{0.75}
@@ -110,6 +116,9 @@
 \titleformat{name=\chapter,numberless}[display]
 {}{\hfill\rule{.7\textwidth}{3pt}}{0pt}
 {\hspace*{.3\textwidth}\huge\bfseries}[\addvspace{-1pt}]
+
+% \part* title and add to ToC
+\titleformat{\part}{\center\normalfont\Huge\bfseries}{}{0pt}{}
 
 % Fancy chapter titles
 \newcommand{\hsp}{\hspace{20pt}}
