@@ -49,21 +49,24 @@
 
     \input{chapters/chapter5}
 
+    % APPENDICES
+
+    \appendix
+    \newpage
+    \pagenumbering{roman}
+    \part*{Appendices}
+    \input{appendix/appendix1}
+    \input{appendix/appendix2}
+
     % BIBLIOGRAPHY
 
     \bibliographystyle{plain}
     \bibliography{bibliography}
-    \pagenumbering{roman}
 
     % ACRONYMS
 
     \printnoidxglossaries
 
-    % APPENDICES
-
-    \appendix
-    \part*{Appendices}
-    \input{appendix/appendix1}
-    \input{appendix/recycled}
+    %\input{appendix/recycled}
 
 \end{document}

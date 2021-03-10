@@ -1,3 +1,51 @@
-\chapter{Datasets for Intrusion Detection Evaluation}
+\chapter{Network Features and Related Attacks}
+\label{app:net-features}
 
-\lipsum
+\begin{table}[h]
+    \centering
+    \begin{tabularx}{0.8\textwidth}{p{3cm}Mp{2cm}}
+        \toprule
+        \textit{Attack} & \normalfont\textit{Feature} & \textit{Weight}\\
+        \midrule
+        \multirow{5}{*}{Botnet} & Subflow F. Bytes & 0.8\\
+        \arrayrulecolor{gray75}\cmidrule{2-3}
+        & Total Len F. Packets & A \\
+        \cmidrule{2-3}
+        & F. Packets Len Mean & B \\
+        \cmidrule{2-3}
+        & B. Packets/s & C \\
+        \midrule
+        \multirow{5}{*}{Bruteforce} & Init Win F. Bytes & 0.8\\
+        \cmidrule{2-3}
+        & Subflow F. Bytes & A \\
+        \cmidrule{2-3}
+        & Total Len F. Packets & B \\
+        \cmidrule{2-3}
+        & \glsxtrshort{ack} Flag Count & C \\
+        \midrule
+        \multirow{5}{*}{DDoS} & B. Packets Len Std & 0.8\\
+        \cmidrule{2-3}
+        & Avg Packet Size & A \\
+        \cmidrule{2-3}
+        & Flow Duration & B \\
+        \cmidrule{2-3}
+        & Flow IAT Std & C \\
+        \midrule
+        \multirow{5}{*}{Heartbleed} & Total Length of Flow Packets & 0.8\\
+        \arrayrulecolor{gray75}\cmidrule{2-3}
+        & Flow Duration & A \\
+        \cmidrule{2-3}
+        & Something else & B \\
+        \cmidrule{2-3}
+        & Don't know & C \\
+        \midrule
+        \multirow{4}{*}{Port Scan} & Init Win F.Bytes & 0.8\\
+        \cmidrule{2-3}
+        & B.Packets/s & A \\
+        \cmidrule{2-3}
+        & PSH Flag Count & B \\
+        \arrayrulecolor{black}\bottomrule
+    \end{tabularx}
+    \caption{Useful network flow features}
+    \label{tab:flow-metrics}
+\end{table}
