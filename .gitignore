@@ -275,9 +275,6 @@ TSWLatexianTemp*
 # Makeindex log files
 *.lpz
 
-# VS Code and macOS files
-.vscode
-.DS_Store
 __latexindent_temp.pdf
 __latexindent_temp.tex
 
@@ -286,3 +283,15 @@ __latexindent_temp.tex
 
 # Final version on releases
 thesis.pdf
+
+# Folder view configuration files
+.DS_Store
+Desktop.ini
+
+# Thumbnail cache files
+._*
+Thumbs.db
+
+# Files that might appear on external disks
+.Spotlight-V100
+.Trashes
