@@ -17,7 +17,7 @@
 <!-- PROJECT LOGO -->
 <br />
 <p align="center">
-  <a href="https://github.com/GiovanniBaccichet">
+  <a href="https://github.com/GiovanniBaccichet/bachelor-thesis">
     <img src="imgs/Books_perspective_matte.png" alt="Logo" width="170">
   </a>
 
