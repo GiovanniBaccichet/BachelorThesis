@@ -184,19 +184,36 @@ This is a behavioural-based technique that observes changes in normal activity b
 \subsubsection{Signature-based Detection}
 \label{subsubsec:signature-detection}
 
-Signature-based Detection uses a set of pre-defined rules to match the patterns in the network traffic \cite{Hodo2017}. Its selling point is the low false-positive detection ratio, whereas its main drawback is the detection capabilities: stuck to the database of known attacks.
-
-\subsubsection{Machine Learning Techniques}
-\label{subsubsec:ml-techniques}
+Signature-based Detection uses a set of pre-defined rules to match the patterns in the network traffic \cite{Hodo2017}. Its selling point is the low false-positive detection ratio, whereas its main drawback is the detection capabilities: stuck to the database of known attacks. For this reason this type of detection will not be considered in this project.
 
 %----------------------------------------------------
 % DETECTION RATES
 %----------------------------------------------------
 
-\subsection{Detection rates}
+\subsection{Detection rates and base-rate fallacy}
 \label{subsec:detection-rates}
 
-\lipsum[1-2]
+Understanding how accurate is an \gls{ids}, or a detection model is fundamental for making the right choices during the development. Moreover, understanding which parameters are important and which may only \textit{seem} to be important. These values can be obtained using some probability calculation and statistics. In \cite{Axelsson2000} the author used the \textit{base-rate fallacy}, one of the cornerstones of Bayesian statistics. A similar concept was applied in \cite{Liu2019} for evaluating the effectiveness of a \gls{ml} algorithm. The parameters needed to evaluate the \textit{effectiveness} of an \gls{ids} are:
+\begin{itemize}
+    \item[\faCaretRight] \textit{True Positive rate}: namely, a measure of attacks rightly classified as threats. It is represented by the conditional probability of an alarm triggered $A$ given that there has been an intrusion $I$, so $P(A|I)$;
+    \item[\faCaretRight] \textit{False Positive rate}: also called \textit{False Alarm rate}, it indicates a measure of normal events, misclassified as attacks. It it the conditional probability of an attack being detected, given that there wasn't any, so $P(A|\neg I)$.
+\end{itemize}
+Recalling the \textit{conditional probability} of $A$, given that $B$ has occurred:
+\begin{equation}
+    P(A|B)=\frac{P(A)\cdot P(B|A)}{P(B)}
+    \label{eq:conditional-prob}
+\end{equation}
+And the \textit{Bayes Theorem}:
+\begin{equation}
+    P(A|B)=\frac{P(A)\cdot P(B|A)}{\sum_{i=1}^nP(A_i)\cdot P(B|A_i)}
+    \label{eq:Bayes-th}
+\end{equation}
+It is now possible to make some assumptions on what the ideal \gls{ids} should aim to: achieving substantial values of \textit{Bayesian Detection rate} $P(I|A)$, minimizing $P(A|\neg I)$, in other words, the false alarms. Considering \ref{eq:Bayes-th}, the Bayesian Detection rate can be calculated:
+\begin{equation}
+    P(I|A)=\frac{P(I)\cdot P(A|I)}{P(I)\cdot P(A|I)+ P(\neg I)\cdot P(A|\neg I)}
+    \label{eq:Bayesian-detection-rate}
+\end{equation}
+Equation \ref{eq:Bayesian-detection-rate} refers to the probability that an alarm really indicates an intrusion: it is noticeable now that the limiting-factor in an \gls{ids} is not the ability to identify the behaviour correctly as a threat, rather its ability to suppress false alarms: the factor concerning the detection rate is overshadowed by the factor governing the false alarm rate, since intrusions don't happen so often, $P(I)<P(\neg I)$, but it is also true that $P(I)+P(\neg I)=1$; giving some examples for further explanation, assuming $P(I)=2\cdot 10^{-5}\Rightarrow P(\neg I)=0.99998$, and now the discrepancy is evident \cite{Axelsson2000}. \\ This demonstrates that, during the development of an \gls{ids} it is necessary to keep an eye on the \textit{False Positive rate}, in order to be as effective as possible.
 
 %----------------------------------------------------
 % DATASETS FOR INTRUSION DETECTION SYSTEMS
@@ -205,15 +222,20 @@ Signature-based Detection uses a set of pre-defined rules to match the patterns 
 \subsection{Datasets for Intrusion Detection Evaluation}
 \label{subsec:datasets-for-evaluation}
 
-See paper \cite{icissp18}, \cite{Khraisat2019} and \cite{Leevy2020} \\
-
-\lipsum[1-6]
+See paper \cite{icissp18}, \cite{Khraisat2019} and \cite{Leevy2020} \lipsum[1-3]
 
 \begin{center}
-    \begin{chronology}[5]{1983}{2010}{\textwidth}
-        \event{1984}{One}
-        \event[1985]{1986}{two}
-        \event{\decimaldate{25}{12}{2001}}{three}
+    \begin{chronology}*[2]{1998}{2020}{\textwidth}
+        \event{1999}{DARPA \\ KDD}
+        \event{2002}{DEFCON}
+        \event{2016}{CAIDA}
+        \event{2005}{LBNL}
+        \event{2009}{CDX \\ Twente \\ Kyoto}
+        \event{2011}{UMASS}
+        \event{2012}{ISCX2012}
+        \event{2013}{ADFA}
+        \event{2017}{CICIDS2017}
+        \event{2018}{CICIDS2018}
     \end{chronology}
 \end{center}
 
@@ -254,4 +276,4 @@ Discussed in \ref{sec:machine-learning}
 \subsection{Machine Learning Libraries}
 \label{subsec:ml-libraries}
 
-\lipsum[1-5]
+\lipsum[1-3]
