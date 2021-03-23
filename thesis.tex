@@ -1,8 +1,8 @@
 \documentclass[a4paper, 11pt, titlepage]{book}
 
-\input{config}
+\input{assets/config}
 
-\input{glossary}
+\input{assets/glossary}
 
 % -----------------------------------------------------------------------
 %                               DOCUMENT
@@ -13,12 +13,12 @@
     % TITLE PAGE
     
     \pagenumbering{gobble}
-    \input{title}
+    \input{assets/title}
     \clearpage
 
     % ABSTRACT
 
-    \input{chapters/abstract}
+    \input{assets/chapters/abstract}
     \clearpage
 
     % TOC
@@ -31,23 +31,23 @@
 
     % CHAPTER 1 - Introduction
 
-    \input{chapters/chapter1}
+    \input{assets/chapters/chapter1}
 
     % CHAPTER 2 - State of the Art
 
-    \input{chapters/chapter2}
+    \input{assets/chapters/chapter2}
 
     % CHAPTER 3 - Methodology
 
-    \input{chapters/chapter3}
+    \input{assets/chapters/chapter3}
 
     % CHAPTER 4 - Results
 
-    \input{chapters/chapter4}
+    \input{assets/chapters/chapter4}
 
     % CHAPTER 5 - Conclusions
 
-    \input{chapters/chapter5}
+    \input{assets/chapters/chapter5}
 
     % APPENDICES
 
@@ -55,13 +55,13 @@
     \newpage
     \pagenumbering{roman}
     \part*{Appendices}
-    \input{appendix/appendix1}
-    \input{appendix/appendix2}
+    \input{assets/appendix/appendix1}
+    \input{assets/appendix/appendix2}
 
     % BIBLIOGRAPHY
 
     \bibliographystyle{plain}
-    \bibliography{bibliography}
+    \bibliography{assets/bibliography}
 
     % ACRONYMS
 
