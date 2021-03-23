@@ -14,7 +14,7 @@
 
 \begin{figure}[h!]
     \centering
-    \includegraphics[scale=0.23]{assets/figures/TCP_IP Stack.png}
+    \includegraphics[scale=0.23]{assets/figures/chapter2/TCP_IP Stack.png}
     \caption{Internet protocol suite: TCP/IP Stack}
     \label{fig:TCP/IP-stack}
 \end{figure}
@@ -154,7 +154,7 @@ An \gls{ids} is a piece of software put in place to monitor computer networks: b
 
 \begin{figure}[h!]
         \centering
-        \includegraphics[scale=0.2]{assets/figures/Intrusion Detection System Model.png}
+        \includegraphics[scale=0.2]{assets/figures/chapter2/Intrusion Detection System Model.png}
         \caption{Intrusion Detection System Model}
         \label{fig:IDS-model}
 \end{figure}
@@ -187,6 +187,42 @@ This is a behavioural-based technique that observes changes in normal activity b
 Signature-based Detection uses a set of pre-defined rules to match the patterns in the network traffic \cite{Hodo2017}. Its selling point is the low false-positive detection ratio, whereas its main drawback is the detection capabilities: stuck to the database of known attacks. For this reason this type of detection will not be considered in this project.
 
 %----------------------------------------------------
+% DATASETS FOR INTRUSION DETECTION SYSTEMS
+%----------------------------------------------------
+
+\subsection{Datasets for Intrusion Detection Evaluation}
+\label{subsec:datasets-for-evaluation}
+
+%See paper \cite{icissp18}, \cite{Khraisat2019} and \cite{Leevy2020}
+
+\textit{Datasets} are fundamental in the developing stage of an \gls{ids} for testing purposes and performance evaluation. As pointed out in \cite{icissp18}, many researchers struggle to find a reliable and comprehensive dataset, that is also up to date regarding the attacks used to generate it, since there are datasets that date back to 1998. The timeline below represents major dataset releases that were used in many different researches.
+
+\begin{figure}[h!]
+    \begin{center}
+        \begin{chronology}*[2]{1998}{2020}{0.85\textwidth}
+            \event{1998}{DARPA}
+            \event{1999}{KDD}
+            \event{2002}{DEFCON}
+            \event{2016}{CAIDA}
+            \event{2005}{LBNL}
+            \event{2009}{CDX \\ Twente \\ Kyoto}
+            \event{2011}{UMASS}
+            \event{2012}{ISCX2012}
+            \event{2013}{ADFA}
+            \event{2017}{CICIDS2017}
+            \event{2018}{CICIDS2018}
+        \end{chronology}
+    \end{center}
+    \caption{Datasets timeline}
+\end{figure}
+The datasets relevant to this project, used for testing tools, algorithms\footnote{See chapter \ref{chap:methodology}} and understanding what particular feature can tell about the flow are: 
+\begin{itemize}
+    \item[\faCaretRight] \textit{CICIDS2017}: developed in 2017 by the \textit{Canadian Institute for Cybersecurity}, it 
+    \item[\faCaretRight] \textit{KDD}
+\end{itemize}
+\lipsum[1-2]
+
+%----------------------------------------------------
 % DETECTION RATES
 %----------------------------------------------------
 
@@ -214,30 +250,6 @@ It is now possible to make some assumptions on what the ideal \gls{ids} should a
     \label{eq:Bayesian-detection-rate}
 \end{equation}
 Equation \ref{eq:Bayesian-detection-rate} refers to the probability that an alarm really indicates an intrusion: it is noticeable now that the limiting-factor in an \gls{ids} is not the ability to identify the behaviour correctly as a threat, rather its ability to suppress false alarms: the factor concerning the detection rate is overshadowed by the factor governing the false alarm rate, since intrusions don't happen so often, $P(I)<P(\neg I)$, but it is also true that $P(I)+P(\neg I)=1$; giving some examples for further explanation, assuming $P(I)=2\cdot 10^{-5}\Rightarrow P(\neg I)=0.99998$, and now the discrepancy is evident \cite{Axelsson2000}. \\ This demonstrates that, during the development of an \gls{ids} it is necessary to keep an eye on the \textit{False Positive rate}, in order to be as effective as possible.
-
-%----------------------------------------------------
-% DATASETS FOR INTRUSION DETECTION SYSTEMS
-%----------------------------------------------------
-
-\subsection{Datasets for Intrusion Detection Evaluation}
-\label{subsec:datasets-for-evaluation}
-
-See paper \cite{icissp18}, \cite{Khraisat2019} and \cite{Leevy2020} \lipsum[1-3]
-
-\begin{center}
-    \begin{chronology}*[2]{1998}{2020}{\textwidth}
-        \event{1999}{DARPA \\ KDD}
-        \event{2002}{DEFCON}
-        \event{2016}{CAIDA}
-        \event{2005}{LBNL}
-        \event{2009}{CDX \\ Twente \\ Kyoto}
-        \event{2011}{UMASS}
-        \event{2012}{ISCX2012}
-        \event{2013}{ADFA}
-        \event{2017}{CICIDS2017}
-        \event{2018}{CICIDS2018}
-    \end{chronology}
-\end{center}
 
 %----------------------------------------------------
 % MACHINE LEARNING
