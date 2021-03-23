@@ -18,7 +18,7 @@
 <br />
 <p align="center">
   <a href="https://github.com/GiovanniBaccichet/bachelor-thesis">
-    <img src=".github/imgs/Books_perspective_matte.png" alt="Logo" width="170">
+    <img src="imgs/Books_perspective_matte.png" alt="Logo" width="170">
   </a>
 
   <h3 align="center">Bachelor Thesis</h3>
@@ -31,7 +31,7 @@
     <br />
     <a href="">Giovanni Baccichet</a>
     |
-    <a href="">prof. Fabrizio Granelli</a>
+    <a href="">Prof. Fabrizio Granelli</a>
   </p>
 </p>
 
