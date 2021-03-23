@@ -18,7 +18,7 @@
 <br />
 <p align="center">
   <a href="https://github.com/GiovanniBaccichet/bachelor-thesis">
-    <img src="imgs/Books_perspective_matte.png" alt="Logo" width="170">
+    <img src=".github/imgs/Books_perspective_matte.png" alt="Logo" width="170">
   </a>
 
   <h3 align="center">Bachelor Thesis</h3>
