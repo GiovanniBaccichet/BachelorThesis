@@ -18,13 +18,6 @@
 \usepackage{setspace}
 \singlespacing
 
-\usepackage{fontawesome}
-% Needed to have different sizes for fontawesome
-\DeclareFontFamily{U}{fontawesomeOne}{}
-\DeclareFontShape{U}{fontawesomeOne}{m}{n}
-  {<-> FontAwesome--fontawesomeone}{}
-\DeclareRobustCommand\FAone{\fontencoding{U}\fontfamily{fontawesomeOne}\selectfont}
-
 % DRAFT background
 \usepackage{background}
 \backgroundsetup{contents=DRAFT}
@@ -43,6 +36,17 @@
 
 \usepackage{tikz}
 \usetikzlibrary{positioning}
+
+% -----------------------------------------------------------------------
+%                              FONTAWESOME
+% -----------------------------------------------------------------------
+
+\usepackage{fontawesome5}
+% Needed to have different sizes for fontawesome
+\DeclareFontFamily{U}{fontawesomeOne}{}
+\DeclareFontShape{U}{fontawesomeOne}{m}{n}
+  {<-> FontAwesome--fontawesomeone}{}
+\DeclareRobustCommand\FAone{\fontencoding{U}\fontfamily{fontawesomeOne}\selectfont}
 
 % -----------------------------------------------------------------------
 %                                TABLES
@@ -83,6 +87,12 @@
 
 % Black and white images
 \usepackage{graphicx}
+
+\usepackage{caption} % link to the image/table, not to the caption
+
+\usepackage{natbib} % fancy references
+
+\renewcommand*\cite[2][]{\citep[{\fontsize{7}{7}\faBookmark[regular]}][#1]{#2}} % bookmark fontawesome icon added to references
 
 \usepackage{lipsum} % To be removed
 
