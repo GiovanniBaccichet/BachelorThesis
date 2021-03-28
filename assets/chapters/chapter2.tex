@@ -1,7 +1,7 @@
 \chapter{State of the Art}
 \label{chap:state-of-the-art}
 
-\lettrine[lines=3, findent=3pt, nindent=0pt]{T}{his} chapter rounds out the theoretical background and technologies used in the project and discussed in the following: beginning with how network traffic is made ad how to characterize malicious activities, it will then be discussed Software Defined Networking as an industry standard and then \gls{ml} will be introduced, with particular emphasis on Intrusion Detection applications of \textit{Deep Learning}. The reader should here be provided with sufficient knowledge to understand chapters \ref{chap:methodology}, \ref{chap:results} and \ref{chap:conclusions}.
+\lettrine[lines=3, findent=3pt, nindent=0pt]{T}{his} chapter rounds out the theoretical background and technologies used in the project and discussed in the following: beginning with how network traffic is made ad how to characterize malicious activities, will then be discussed Software Defined Networking as an industry standard and then \gls{ml} will be introduced, with particular emphasis on Intrusion Detection applications of \textit{Deep Learning}. The reader should here be provided with sufficient knowledge to understand chapters \ref{chap:methodology}, \ref{chap:results} and \ref{chap:conclusions}.
 
 %----------------------------------------------------
 % NETWORK TRAFFIC
@@ -19,83 +19,41 @@
     \label{fig:TCP/IP-stack}
 \end{figure}
 
-TCP/IP stack is composed of 4 layers, representing from the physical connection (\textit{Network Access Layer}) to the user interface (\textit{Application Layer}). \\ The most relevant layer for this project is the third one: \textit{Transport Layer}, also called \textit{Host to Host Layer} is responsible for end-to-end communication and error-free delivery of data. It shields the upper-layer applications from the complexities of data. The main protocols used in this layer are:
+\noindent TCP/IP stack is composed of 4 layers, representing from the physical connection (\textit{Network Access Layer}) to the user interface (\textit{Application Layer}). The most relevant layer for this project is the third one: \textit{Transport Layer}, also called \textit{Host to Host Layer} is responsible for end-to-end communication and error-free delivery of data. It shields the upper-layer applications from the complexities of data. The main protocols used in this layer are:
 
 \begin{itemize}
-    \item[\faCaretRight] \gls{tcp}: provides reliable and error-free communication between end systems. It also has acknowledgement features and a flow control system. This protocol has a lot of overhead due to its features;
-    \item[\faCaretRight] \gls{udp}: unlikely \gls{tcp}, this protocol doesn't ensure a reliable connection between points, but it is very cost effective and lightweight.
+    \item[\faCaretRight] \gls{tcp}: provides reliable and error-free communication between end systems. It also has acknowledgement features and a flow control system. This protocol has a lot of overhead due to its features \cite{Kurose2012};
+    \item[\faCaretRight] \gls{udp}: unlikely \gls{tcp}, this protocol doesn't ensure a reliable connection between points, but it is very cost effective and lightweight \cite{Kurose2012}.
 \end{itemize}
 Network packets are encapsulated in either a \textit{TCP segment} or a \textit{UDP datagram}. Another relevant protocol that will be used is \gls{icmp}, belonging to the second layer (\textit{Internet Layer}): it s responsible for providing hosts with information about network problems. Because of the particular design of network architecture, in which one layer acts as an intermediate between the layer above and the one below, when trying to characterize the traffic, looking only at these latter protocols can be sufficient \cite{Iglesias2015}.
 
 %----------------------------------------------------
-% SOFTWARE DEFINED NETWORKING
+% TRAFFIC MONITORING
 %----------------------------------------------------
 
-\subsection{Software Defined Networking}
-\label{subsec:sdn}
+\subsection{Network Monitoring}
+\label{subsec:network-monitoring}
 
-Follows a brief introduction on \gls{sdn} as an industry standard, now widely available also in consumer-grade equipment. These notions will be useful to comprehend section \ref{subsec:traffic-characterization}. \\
-\gls{sdn} technology is an approach to network management that enables dynamic and efficient network configuration with the aim of improving network performance and monitoring. It was first issued by \gls{ietf} in the 2000s and since its refinement it was associated with \textit{OpenFlow protocol}, although nowadays it isn't anymore an exclusive solution. In the \gls{sdn} paradigm the network architecture consists fo three planes: \textit{data plane} (that forwards traffic according to the decisions made by the control plane), \textit{control plane} (that decides how to handle network traffic) and \textit{application plane} \cite{Kreutz2015}.
+\textit{Network monitoring} is becoming more and more important in the modern era, however, with new technologies and high traffic speed it is essential to manage in an efficient and scalable way the available resources. Network monitoring allows to know instantaneous state and long term trends of a network infrastructure \cite{Svoboda2015}. This practice can be either active or passive; the latter will be considered in this project. The processo of network monitoring can be divided in two major steps: \textit{traffic duplication} and \textit{analysis}.
 
-\begin{figure}[h!]
-    \centering
-    \begin{tikzpicture}[scale=.45,every node/.style={minimum size=1cm},on grid]
-            
-        %slanting: production of a set of n 'laminae' to be piled up. N=number of grids.
-        \begin{scope}[
-                yshift=-83,every node/.append style={
-                yslant=0.5,xslant=-1},yslant=0.5,xslant=-1
-                ]
-            % opacity to prevent graphical interference
-            \fill[white,fill opacity=0.9] (0,0) rectangle (5,5);
-            \draw (2.5,2.5) node {\fontsize{50}{60} \faRandom};
-            \draw[black,very thick] (0,0) rectangle (5,5);%marking borders
-            %Idem as above, for the n-th grid:
-        \end{scope}
-            
-        \begin{scope}[
-            yshift=0,every node/.append style={
-                yslant=0.5,xslant=-1},yslant=0.5,xslant=-1
-                         ]
-            \fill[white,fill opacity=.9] (0,0) rectangle (5,5);
-            \draw[black,very thick] (0,0) rectangle (5,5);
-            \draw (2.5,2.5) node {\fontsize{50}{60} \faServer};
-        \end{scope}
-            
-        \begin{scope}[
-            yshift=90,every node/.append style={
-            yslant=0.5,xslant=-1},yslant=0.5,xslant=-1
-                         ]
-            \fill[white,fill opacity=.9] (0,0) rectangle (5,5);
-            \draw (2.5,2.5) node {\fontsize{50}{60} \faTv};
-            \draw[black,dashed] (0,0) rectangle (5,5);
-        \end{scope}
-    
-        %putting arrows and labels:
-        \draw[-latex,thick] (6,4) node[right]{$\mathsf{Control\; Plane}$}
-             to[out=180,in=90] (3.5,2.5);
-    
-        \draw[-latex,thick](6,1)node[right]{$\mathsf{Data\; Plane}$}
-             to[out=180,in=90] (3.5,-0.5);
-    
-        \draw[-latex,thick](6,7)node[right]{$\mathsf{Application\; Plane}$}
-            to[out=180,in=90] (3.5,5.5);
-        
-    \end{tikzpicture}
-    \caption{\gls{sdn} paradigm}
-    \label{fig:sdn-paradigm}
-\end{figure}
-The bottom plane is made up of \gls{sdn}-enabled switches, that send routing request to the above plane, instead of calculating routing rules by themselves when receiving new \textit{flows}, then the control plane calculates paths for the requests and assigns the routing rules in compliance with the applications in the top plane \cite{Xu2017}. A \textit{flow} is the set of packets within a time window, which reflects the network environment \cite{Liu2019}. The \textit{controller} exercises direct control over the state in the data plane elements via well-defined \glsplural{api}, such as OpenFlow. An OpenFlow switch has one or more tables of packet-handling rules (flow table). Each rule matches a subset of the traffic and performs certain actions on the traffic. Depending on the rules installed by a controller application, an OpenFlow switch can - instructed by the controller - behave like a router, switch, firewall, or perform other roles and this is the meaning of \textit{Software Defined} in \gls{sdn}.
+\subsubsection{Traffic Duplication}
+\label{subsubsec:traffic-duplication}
 
-%----------------------------------------------------
-% SOFTWARE DEFINED NETWORKING
-%----------------------------------------------------
+In this stage the network traffic is duplicated from the main line, so the copy can be analyzed afterwards. There are two methods for this operation: \textit{inline} or \textit{mirroring} \cite{Svoboda2015}. The former can take place inserting a duplication device in link; on the other hand, the latter uses a built-in feature of the router or switch. Traffic duplication can be divided into:
+\begin{itemize}
+    \item[\faCaretRight] \textit{Port Mirroring}: as mentioned above, this is a functionality usually available in enterprise-oriented gear. This procedure consists, as the name suggests, in mirroring the traffic passing through selected ports, to others. Both directions of the monitored link are transmitted in one direction over the \textit{mirror port}, and this leads to its main downside: a full-duplex traffic is transmitted in one direction over the mirror port: that is up to twice the bandwidth of a single port (considering only two port being serviced by the switch), with consequent \textit{congestion} and \textit{packet drops}. It is now clear that port mirroring isn't scalable, and so will not be considered for the project;
+    \item[\faCaretRight] \gls{tap}: a \gls{tap} is a packet capture device positioned in inline mode. This particular kind of device is placed between the split part of a line and duplicates the traffic. There are different types of \glsplural{tap}, depending on the medium of which the line is made: copper, fiber, \textit{virtual}. The downside of this approach is that introduces a point of failure in the physical line, and in some cases it can weaken the signal;
+    \item[\faCaretRight] \textit{Bypass} \gls{nic}: This is defined in \cite{Svoboda2015} as a \textit{TAP-like setup}. It integrates traffic duplication with traffic analysis: a computer with two \glsplural{nic} is used to intercept the traffic of a split line; the interfaces are configured in software in \textit{bridge mode} (passing all the traffic through without manipulating it). This allows the computer to observe the traffic, similarly to a \gls{tap}. This, as the above mentioned methodology, introduces a point of failure in the network, but has the advantage of being more flexible. It can also be realized using consumer-grade equipment.
+\end{itemize}
 
-\subsubsection{SDN Controller}
-\label{ssubsec:sdn-controller}
+\subsubsection{Traffic Analysis}
+\label{subsubsec:traffic-analysis}
 
-%See paper \cite{Zhu2019} and \cite{Bondkovskii2016} \\
-The \textit{controller} in the control plane is the fundamental element used for all operations of data plane management. Hence, the performance and capabilities of the controller itself are extremely important and in this project its \glsplural{api} will be needed for building a network traffic monitor (and such data will be use to recognize any possible attack). In \cite{Bondkovskii2016} and \cite{Zhu2019} different controllers are compared based on benchmarks, programming languages, documentation and other parameters (\textit{Northbound \glsxtrshort{api}}, \textit{Southbound \glsxtrshort{api}}, \textit{Multithreading}, \textit{Modularity}, etc). \\ In light of this, the controller of choice for the project will be \textit{Ryu Controller}: it outperformed other controllers on almost every benchmark, it has a very well made documentation \cite{RyuDoc} and it supports OpenFlow protocol up to version 1.5.
+There are different approaches to traffic analysis, which all rely on \textit{Packet Capture}: this can be intended in three different manners. Packet capture as a \textit{Packet Duplication Method} consists in capturing network traffic from an observation point, the captured data can be than saved to a file; this process can be either manual or automatic. Packet capture as a \textit{Network Monitoring Approach} is composed of two steps: creating the packet capture file and then performing a network analysis on said data. Also this process can be manual or automatic. An \gls{ids} can be considered as a complicated automated system. One of the main advantages, that can also represent a drawback is the interactivity of this method: full network data is accessible for free viewing in a second time, the problem is that the approach doesn't scale when dealing with large amounts of data.\cite{Svoboda2015}. This topic will be deepened in following sections \ref{subsec:traffic-characterization} and \ref{subsec:malicious-traffic}.
+\begin{itemize}
+    \item[\faCaretRight] \gls{dpi}: this technique concerns of seeing the payload of \gls{ip} packets. Traffic capture and analysis can be seen as separate processes, or can be integrated in pipeline;
+    \item[\faCaretRight] \textit{Flow Observation}: asdasd.  
+\end{itemize}
 
 %----------------------------------------------------
 % TRAFFIC CHARACTERIZATION
@@ -118,7 +76,6 @@ Anomaly detection in communication networks provides the basis for uncovering mi
     \item[\faCaretRight] \textit{Idle}: amount of time the flow was idling before becoming active;
 \end{itemize}
 For all the features (extracted using \textit{Ryu Controller}) also the respective mean, minimum, maximum and standard deviation are calculated and so the above bullet list really represents groups of features, that are not exhaustive\footnote{See appendix \ref{app:net-features} for a table comparing attacks and features} of all possible features related to cyber-attacks. Another high-level semantic information of traffic can be a \textit{session}: a packet sequence combined on the basis of a network information 5-tuple (\textit{source ip}, \textit{destination ip}, \textit{source port}, \textit{destination port} and \textit{protocol}) \cite{Liu2019}.
-\textcolor{dimgray}{\lipsum[1-3]}
 
 %----------------------------------------------------
 % MALICIOUS TRAFFIC
@@ -131,17 +88,96 @@ An \textit{intrusion} can be defined as an attempt to access information about c
 The classes of malicious traffic analyzed in this work are the following:
 
 \begin{itemize}
-    \item[\faCaretRight] \textit{Botnet}: a botnet is a number of Internet connected devices, used to perform various tasks, from stealing data, to spam, or to practice \gls{ddos} attacks. Automated infection tools can also be used to scan for and compromise suitable zombie systems \cite{icissp18} and \cite[p.~250]{Sharafaldin2019} asdasd \citep[{\fontsize{8}{8}\faBookmark[regular]}][p.~250]{Sharafaldin2019};
+    \item[\faCaretRight] \textit{Botnet}: a botnet is a number of Internet connected devices, used to perform various tasks, from stealing data, to spam, or to practice \gls{ddos} attacks. Automated infection tools can also be used to scan for and compromise suitable zombie systems \cite{icissp18} and \cite[p.~250]{Sharafaldin2019};
     \item[\faCaretRight] \textit{Bruteforce}: this kind of attack is one of the most popular and it can be used to guess passwords or \glsxtrshortpl{url} (in order to discover hidden contents in web applications). It can be defined as an hint and try attack, that corresponds of trying every possible key on a piece of ciphertext until an intelligible translation into plaintext is obtained \cite{icissp18} and \cite[p.~43]{Sharafaldin2019};
     \item[\faCaretRight] \gls{xss}: this kind of vulnerability can typically be found in web applications. An \gls{xss} attack consist of injecting client-side scripts into \glsxtrshort{html} content of web pages, that can be viewed by other users and aims to gain elevated access privileges to sensitive data belong- ing to other sites \cite[p.~387]{Sharafaldin2019};
     \item[\faCaretRight] \gls{dos}: the objective of this attack is to exhaust some critical resources associated with the target service, denying or preventing legitimate users to access the system or the network \cite[p.~241]{Sharafaldin2019};
     \item[\faCaretRight] \gls{ddos}: unlike the previous type of attack, the incoming traffic flooding the victim is obtained from many different sources. This effectively makes it impossible to stop the attack simply by blocking a single source and guarantees much more bandwidth to the attacker \cite[p.~241]{Sharafaldin2019};
-    \item[\faCaretRight] \textit{Heartbleed}: this particular attack exploits a bug in the OpenSSL cryptography library, widely used implementation of the \gls{tls} protocol. It was discovered in 2014 and allowed to expose significant amounts of memory on the vulnerable system \cite{Carvalho2014}, \cite{icissp18}, \cite{Stallings2014} and \cite[p.~706]{Sharafaldin2019};
+    \item[\faCaretRight] \textit{Heartbleed}: this particular attack exploits a bug in the OpenSSL cryptography library, widely used implementation of the \gls{tls} protocol. It was discovered in 2014 and allowed to expose significant amounts of memory on the vulnerable systems \cite{Carvalho2014}, \cite[p.~706]{Sharafaldin2019}, \cite{icissp18} and \cite{Stallings2014};
     \item[\faCaretRight] \textit{Port Scanning}: this occurs when an attacker sends probe packets to gather intelligence information about the infrastructure, based on the responses received \cite{icissp18};
-    \item[\faCaretRight] \gls{sqli}: it is one of the most prevalent and dangerous network-based security threats that uses malicious database queries to extract bulk data from the latter; this can occur, for example, through badly projected forms on web pages \cite[p.~163]{Sharafaldin2019}.
+    \item[\faCaretRight] \gls{sqli}: it is one of the most prevalent and dangerous network-based security threats that uses malicious database queries to extract bulk data from the latter; this can occur, for example, through badly projected forms on web pages \cite[p.~163]{Sharafaldin2019};
+    \item[\faCaretRight] \textit{Zero Day}: \textit{zero-day} attacks consist in exploiting a vulnerability that has not been publicly disclosed, and so can be considered unknown \cite{Bilge2012}.
 \end{itemize}
-This list isn't exhaustive of all possible network violations, but these are the attacks contained in the dataset\footnote{See section \ref{subsec:datasets-for-evaluation}} used for the evaluation. Regarding the characterization of said violations, a comprehensive list of network features and related attacks can be found in appendix \ref{app:net-features}.
-\textcolor{dimgray}{\lipsum[1]}
+This list isn't exhaustive of all possible network violations, but these are the attacks contained in the dataset\footnote{See section \ref{subsec:datasets-for-evaluation}} used for the evaluation.
+
+%----------------------------------------------------
+% SOFTWARE DEFINED NETWORKING
+%----------------------------------------------------
+
+\subsection{Software Defined Networking}
+\label{subsec:sdn}
+
+Follows a brief introduction on \gls{sdn} as an industry standard, now widely available also in consumer-grade equipment. These notions will be useful to comprehend section \ref{subsec:traffic-characterization}. \\
+\gls{sdn} technology is an approach to network management that enables dynamic and efficient network configuration with the aim of improving network performance and monitoring. It was first issued by \gls{ietf} in the 2000s and since its refinement it was associated with \textit{OpenFlow protocol}, although nowadays it isn't anymore an exclusive solution. In the \gls{sdn} paradigm the network architecture consists fo three planes: \textit{data plane} (that forwards traffic according to the decisions made by the control plane), \textit{control plane} (that decides how to handle network traffic) and \textit{application plane} \cite{Kreutz2015}.
+
+\begin{figure}[h!]
+    \centering
+    \begin{tikzpicture}[scale=.45,every node/.style={minimum size=1cm},on grid]
+            
+        %slanting: production of a set of n 'laminae' to be piled up. N=number of grids.
+        \begin{scope}[
+                yshift=-83,every node/.append style={
+                yslant=0.5,xslant=-1},yslant=0.5,xslant=-1
+                ]
+            % opacity to prevent graphical interference
+            \fill[white,fill opacity=0.9] (0,0) rectangle (5,5);
+            \draw (2.4,2.5) node {\fontsize{40}{40} \faRandom};
+            \draw[black,very thick] (0,0) rectangle (5,5);%marking borders
+            %Idem as above, for the n-th grid:
+        \end{scope}
+            
+        \begin{scope}[
+            yshift=0,every node/.append style={
+                yslant=0.5,xslant=-1},yslant=0.5,xslant=-1
+                         ]
+            \fill[white,fill opacity=.9] (0,0) rectangle (5,5);
+            \draw[black,very thick] (0,0) rectangle (5,5);
+            \draw (2.4,2.5) node {\fontsize{40}{40} \faServer};
+        \end{scope}
+            
+        \begin{scope}[
+            yshift=90,every node/.append style={
+            yslant=0.5,xslant=-1},yslant=0.5,xslant=-1
+                         ]
+            \fill[white,fill opacity=.9] (0,0) rectangle (5,5);
+            \draw (2.4,2.5) node {\fontsize{40}{40} \faTv};
+            \draw[black,dashed] (0,0) rectangle (5,5);
+        \end{scope}
+    
+        %putting arrows and labels:
+        \draw[-latex,thick] (6,4) node[right]{$\mathsf{Control\; Plane}$}
+             to[out=180,in=90] (3.5,2.5);
+    
+        \draw[-latex,thick](6,1)node[right]{$\mathsf{Data\; Plane}$}
+             to[out=180,in=90] (3.5,-0.5);
+    
+        \draw[-latex,thick](6,7)node[right]{$\mathsf{Application\; Plane}$}
+            to[out=180,in=90] (3.5,5.5);
+        
+    \end{tikzpicture}
+    \caption{\gls{sdn} paradigm}
+    \label{fig:sdn-paradigm}
+\end{figure}
+\noindent The bottom plane is made up of \gls{sdn}-enabled switches, that send routing request to the above plane, instead of calculating routing rules by themselves when receiving new \textit{flows}, then the control plane calculates paths for the requests and assigns the routing rules in compliance with the applications in the top plane \cite{Xu2017}. A \textit{flow} is the set of packets within a time window, which reflects the network environment \cite{Liu2019}. The \textit{controller} exercises direct control over the state in the data plane elements via well-defined \glsplural{api}, such as OpenFlow. An OpenFlow switch has one or more tables of packet-handling rules (flow table). Each rule matches a subset of the traffic and performs certain actions on the traffic. Depending on the rules installed by a controller application, an OpenFlow switch can - instructed by the controller - behave like a router, switch, firewall, or perform other roles and this leads to fault tolerance and scalability, and this is what makes this technology so convenient \cite{Lantz2015}.
+
+%----------------------------------------------------
+% SDN CONTROLLER
+%----------------------------------------------------
+
+\subsubsection{SDN Controller}
+\label{subsubsec:sdn-controller}
+
+%See paper \cite{Zhu2019} and \cite{Bondkovskii2016} \\
+The \textit{controller} in the control plane is the fundamental element used for all operations of data plane management. Hence, the performance and capabilities of the controller itself are extremely important and in this project its \glsplural{api} will be needed for building a network traffic monitor (and such data will be use to recognize any possible attack). In \cite{Bondkovskii2016} and \cite{Zhu2019} different controllers are compared based on benchmarks, programming languages, documentation and other parameters (\textit{Northbound \glsxtrshort{api}}, \textit{Southbound \glsxtrshort{api}}, \textit{Multithreading}, \textit{Modularity}, etc). \\ In light of this, the controller of choice for the project will be \textit{Ryu Controller}: it outperformed other controllers on almost every benchmark, it has a very well made documentation \cite{RyuDoc} and it supports OpenFlow protocol up to version 1.5.
+
+%----------------------------------------------------
+% SDN TESTBED
+%----------------------------------------------------
+
+\subsubsection{SDN Prototyping Testbed}
+\label{subsec:sdn-testbed}
+
+Since the purpose of this project is to develop an \gls{ids}, specifically made to be used in a \gls{sdn}, it is necessary to take into consideration what is defined in \cite{Lantz2015} as \textit{the fat testbed problem}: \glsplural{vm} and containers used to build a development environment create too much overhead and are wasteful of hardware resources. An efficient solution for a dynamic prototyping testbed is \textit{Mininet} \cite{MininetWebsite}. This application has the capability of creating a lightweight \gls{sdn} platform using Python \glsplural{api}, and avoiding the cost of running unnecessary software as kernels and daemons. It is also pretty straightforward to deploy additional scripts onto the virtual environment, using custom command line arguments and without the need of adapting the software to this particular scenario.
 
 %----------------------------------------------------
 % INTRUSION DETECTION SYSTEMS
@@ -158,7 +194,7 @@ An \gls{ids} is a piece of software put in place to monitor computer networks: b
         \caption{Intrusion Detection System Model}
         \label{fig:IDS-model}
 \end{figure}
-The functions demanded to an \gls{ids} are basically to detect and to give information about threats, such as those discussed in \ref{subsec:malicious-traffic}. There is a variety of implementations of \glsplural{ids} and detection models, which are briefly discussed in the following section \ref{subsec:taxonomy-ids}.
+\noindent The functions demanded to an \gls{ids} are basically to detect and to give information about threats, such as those discussed in \ref{subsec:malicious-traffic}. There is a variety of implementations of \glsplural{ids} and detection models, which are briefly discussed in the following section \ref{subsec:taxonomy-ids}.
 
 %----------------------------------------------------
 % TAXONOMY OF INTRUSION DETECTION SYSTEMS
@@ -258,9 +294,9 @@ Equation \ref{eq:Bayesian-detection-rate} refers to the probability that an alar
 \section{Machine Learning}
 \label{sec:machine-learning}
 
-See paper \cite{Khraisat2019} and \cite{Hodo2017} \\
+%See paper \cite{Khraisat2019} and \cite{Hodo2017} \\
 
-\lipsum \\
+\lipsum[1-4] \\
 Discussed in \ref{sec:machine-learning}
 
 %----------------------------------------------------
@@ -270,7 +306,7 @@ Discussed in \ref{sec:machine-learning}
 \subsection{Machine Learning Algorithms}
 \label{subsec:ml-algorithms}
 
-\lipsum
+\lipsum[1-6]
 
 %----------------------------------------------------
 % DEEP LEARNING
@@ -279,7 +315,7 @@ Discussed in \ref{sec:machine-learning}
 \subsection{Deep Learning}
 \label{subsec:deep-learning}
 
-\lipsum
+\lipsum[1-3]
 
 %----------------------------------------------------
 % MACHINE LEARNING LIBRARIES
@@ -288,4 +324,4 @@ Discussed in \ref{sec:machine-learning}
 \subsection{Machine Learning Libraries}
 \label{subsec:ml-libraries}
 
-\lipsum[1-2]
+\lipsum[1]
