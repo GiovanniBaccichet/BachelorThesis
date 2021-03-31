@@ -14,7 +14,7 @@
 
 \begin{figure}[h!]
     \centering
-    \includegraphics[scale=0.23]{assets/figures/chapter2/TCP_IP Stack.png}
+    \includegraphics[scale=0.25]{assets/figures/chapter2/TCP_IP Stack.png}
     \caption{Internet protocol suite: TCP/IP Stack}
     \label{fig:TCP/IP-stack}
 \end{figure}
@@ -34,7 +34,7 @@ Network packets are encapsulated in either a \textit{TCP segment} or a \textit{U
 \subsection{Network Monitoring}
 \label{subsec:network-monitoring}
 
-\textit{Network monitoring} is becoming more and more important in the modern era, however, with new technologies and high traffic speed it is essential to manage in an efficient and scalable way the available resources. Network monitoring allows to know instantaneous state and long term trends of a network infrastructure \cite{Svoboda2015}. This practice can be either active or passive; the latter will be considered in this project. The processo of network monitoring can be divided in two major steps: \textit{traffic duplication} and \textit{analysis}.
+\textit{Network monitoring} is becoming more and more important in the modern era, however, with new technologies and high traffic speed it is essential to manage in an efficient and scalable way the available resources. Network monitoring allows to know instantaneous state and long term trends of a network infrastructure. This practice can be either active or passive; the latter will be considered in this project. The process of network monitoring can be divided in two major steps: \textit{traffic duplication} and \textit{analysis}. A comprehensive overview of network monitoring approaches can be found in \cite{Svoboda2015}.
 
 \subsubsection{Traffic Duplication}
 \label{subsubsec:traffic-duplication}
@@ -49,11 +49,24 @@ In this stage the network traffic is duplicated from the main line, so the copy 
 \subsubsection{Traffic Analysis}
 \label{subsubsec:traffic-analysis}
 
-There are different approaches to traffic analysis, which all rely on \textit{Packet Capture}: this can be intended in three different manners. Packet capture as a \textit{Packet Duplication Method} consists in capturing network traffic from an observation point, the captured data can be than saved to a file; this process can be either manual or automatic. Packet capture as a \textit{Network Monitoring Approach} is composed of two steps: creating the packet capture file and then performing a network analysis on said data. Also this process can be manual or automatic. An \gls{ids} can be considered as a complicated automated system. One of the main advantages, that can also represent a drawback is the interactivity of this method: full network data is accessible for free viewing in a second time, the problem is that the approach doesn't scale when dealing with large amounts of data.\cite{Svoboda2015}. This topic will be deepened in following sections \ref{subsec:traffic-characterization} and \ref{subsec:malicious-traffic}.
+There are different approaches to traffic analysis, but all of them rely on \textit{Packet Capture}, but this can be intended in two different manners. Packet capture as a \textit{Packet Duplication Method} consists in capturing network traffic from an observation point, the captured data can then be saved to a file. \gls{pcap} is a commonly used file extension for storing captured traffic. Packet capture as a \textit{Network Monitoring Approach} is composed of two steps: creating the packet capture file and then performing a network analysis on said data. This process can also be manual or automatic. An \gls{ids} can be considered as a complicated automated system. One of the main advantages, that can also represent a drawback is the interactivity of this method: full network data is accessible for free viewing in a second time, the problem is that the approach doesn't scale when dealing with large amounts of data \cite{Svoboda2015}. Traffic capture and analysis can be seen as separate processes, or can be integrated in pipeline. The main approaches to traffic analysis are: \textit{packet inspection} and \textit{flow-based characterization}. The first one consists of inspecting each network packet; it is very resource consuming and not always allowed since the payload can be encrypted. On the other hand, the second one is less precise, but much more cost effective and lightweight \cite{Alaidaros2017}. Machine learning methodologies can improve the detection rate of \textit{flow-based characterization} \cite{Iglesias2015}: this makes it a reliable go-to.
+
 \begin{itemize}
-    \item[\faCaretRight] \gls{dpi}: this technique concerns of seeing the payload of \gls{ip} packets. Traffic capture and analysis can be seen as separate processes, or can be integrated in pipeline;
-    \item[\faCaretRight] \textit{Flow Observation}: asdasd.  
+    \item[\faCaretRight] \gls{dpi}: this technique consists in seeing the payload of \glsxtrshort{ip} packets. \gls{dpi}-based analysis can either be \textit{pattern matching} or \textit{event-based}. The former involves searching through full network data for known sequences of bytes. This can easily become a problem when dealing with large amounts of data, or complicated decision logic. This approach is slow and most of the times requires \glsxtrshort{fpga} hardware acceleration to handle the traffic throughput. \textit{Snort} \cite{SnortWebsite} and \textit{Suricata} \cite{SuricataWebsite} are implementations of pattern matching \gls{dpi}. On the other hand, event-based analysis relies on processing packets into events, that are then processed by scripts. Zeek \cite{ZeekWebsite}, formerly known as Bro uses an event-based architecture;
+    \item[\faCaretRight] \textit{Flow Observation}: this is a different approach to traffic analysis, that uses only the information contained in the packets' headers, not in the payload. This information is aggregated into \textit{flows}, which are defined in \cite{RFC7011} as \textit{`[...] a set of packets or frames passing an Observation Point in the network during a certain time interval. All packets belonging to a particular Flow have a set of common properties'}. To distinguish one flow to the other a 5-tuple consisting of \textit{source ip}, \textit{destination ip}, \textit{source port}, \textit{destination port} and \textit{protocol} is used. This architecture has several advantages: it is much more cost effective than the other methods both in terms of storage and performance. Another strong point of flow observation is privacy, in fact only aggregated metadata about the traffic is stored.
 \end{itemize}
+
+\noindent Flow observation is what will be used in this project, considering its scalability with high speeds, its optimization in terms of storage and also taking into account modern concerns about privacy. \\ This architecture is composed of five steps:
+
+\begin{enumerate}
+    \item \textit{Observation}: gathering information about network traffic and sending the packets acquired to the next step;
+    \item \textit{Metering}: this process identifies flows and calculate their statistics. From this point the original packet is not needed anymore;
+    \item \textit{Export}: after a certain period of time the processed flows are exported;
+    \item \textit{Collector}: in this stage metered flows are stored in order to be analyzed;
+    \item \textit{Analysis}: flows are analyzed using some important \textit{features}.
+\end{enumerate}
+
+\noindent In the next sections \ref{subsec:traffic-characterization} and \ref{subsec:malicious-traffic} steps 2 and 5 will be clarified.
 
 %----------------------------------------------------
 % TRAFFIC CHARACTERIZATION
@@ -64,7 +77,7 @@ There are different approaches to traffic analysis, which all rely on \textit{Pa
 \subsection{Traffic Characterization}
 \label{subsec:traffic-characterization}
 
-Anomaly detection in communication networks provides the basis for uncovering misconfigurations, network failures and potential threats. Resource and time constraints create the need of restricting to a limited number of features the traffic characterization and task detection. Limiting the resources spent for the observation and the analysis of such data, also improves the quality of the detection, since trivial and redundant data will not be considered. There are two different methodologies to characterize network traffic: \textit{packet inspection} and \textit{flow-based characterization}. The first one consists of inspecting each network packet; it is very resource consuming and not always allowed since the payload can be encrypted. On the other hand, the second one is less precise, but much more cost effective and lightweight \cite{Alaidaros2017}. Machine learning methodologies can improve the detection rate of \textit{flow-based characterization} \cite{Iglesias2015}: this makes it a reliable go-to. In \cite{icissp17} \textit{time-related} features are suggested to characterize traffic with ease:
+Anomaly detection in communication networks provides the basis for uncovering misconfigurations, network failures and potential threats. Resource and time constraints create the need of restricting to a limited number of features the traffic characterization and task detection. Limiting the resources spent for the observation and the analysis of such data, also improves the quality of the detection, since trivial and redundant information will not be considered. In \cite{icissp17} and \cite{icissp18} \textit{time-related} features are suggested to characterize traffic with ease:
 \begin{itemize}
     \item[\faCaretRight] \textit{Active}: duration of sending packets before idle;
     \item[\faCaretRight] \gls{biat}: time between two packets sent backward;
@@ -75,7 +88,7 @@ Anomaly detection in communication networks provides the basis for uncovering mi
     \item[\faCaretRight] \gls{fiat}: time between two packets sent forward; 
     \item[\faCaretRight] \textit{Idle}: amount of time the flow was idling before becoming active;
 \end{itemize}
-For all the features (extracted using \textit{Ryu Controller}) also the respective mean, minimum, maximum and standard deviation are calculated and so the above bullet list really represents groups of features, that are not exhaustive\footnote{See appendix \ref{app:net-features} for a table comparing attacks and features} of all possible features related to cyber-attacks. Another high-level semantic information of traffic can be a \textit{session}: a packet sequence combined on the basis of a network information 5-tuple (\textit{source ip}, \textit{destination ip}, \textit{source port}, \textit{destination port} and \textit{protocol}) \cite{Liu2019}.
+For all the features also the respective mean, minimum, maximum and standard deviation are calculated and so the above bullet list really represents groups of features\footnote{See appendix \ref{app:net-features}}.
 
 %----------------------------------------------------
 % MALICIOUS TRAFFIC
@@ -95,10 +108,9 @@ The classes of malicious traffic analyzed in this work are the following:
     \item[\faCaretRight] \gls{ddos}: unlike the previous type of attack, the incoming traffic flooding the victim is obtained from many different sources. This effectively makes it impossible to stop the attack simply by blocking a single source and guarantees much more bandwidth to the attacker \cite[p.~241]{Sharafaldin2019};
     \item[\faCaretRight] \textit{Heartbleed}: this particular attack exploits a bug in the OpenSSL cryptography library, widely used implementation of the \gls{tls} protocol. It was discovered in 2014 and allowed to expose significant amounts of memory on the vulnerable systems \cite{Carvalho2014}, \cite[p.~706]{Sharafaldin2019}, \cite{icissp18} and \cite{Stallings2014};
     \item[\faCaretRight] \textit{Port Scanning}: this occurs when an attacker sends probe packets to gather intelligence information about the infrastructure, based on the responses received \cite{icissp18};
-    \item[\faCaretRight] \gls{sqli}: it is one of the most prevalent and dangerous network-based security threats that uses malicious database queries to extract bulk data from the latter; this can occur, for example, through badly projected forms on web pages \cite[p.~163]{Sharafaldin2019};
-    \item[\faCaretRight] \textit{Zero Day}: \textit{zero-day} attacks consist in exploiting a vulnerability that has not been publicly disclosed, and so can be considered unknown \cite{Bilge2012}.
+    \item[\faCaretRight] \gls{sqli}: it is one of the most prevalent and dangerous network-based security threats that uses malicious database queries to extract bulk data from the latter; this can occur, for example, through badly projected forms on web pages \cite[p.~163]{Sharafaldin2019}.
 \end{itemize}
-This list isn't exhaustive of all possible network violations, but these are the attacks contained in the dataset\footnote{See section \ref{subsec:datasets-for-evaluation}} used for the evaluation.
+The purpose of this section was not to provide a comprehensive list of all possible network violation, rather to point out some of the most important known vulnerabilities and methodologies, which are contained in the dataset\footnote{See section \ref{subsec:datasets-for-evaluation}} used for the evaluation.
 
 %----------------------------------------------------
 % SOFTWARE DEFINED NETWORKING
@@ -210,12 +222,12 @@ Different researchers have developed multiple classification representations of 
 \subsubsection{HIDS and NIDS}
 \label{subsubsec:hids-nids}
 
-As mentioned above, \glsplural{ids} can fall into two different categories: \gls{hids} was the first type to be implemented \cite{Debar1999} and consists in an application that, once installed on a host machine, analyzes and monitors all the network activities related to such computer. The traffic activities gathered are called \textit{audit trails}. There is one main advantage in using this typology of \gls{ids}: being able to detect threat before sending and receiving data. Its main disadvantage is that in order to monitor the whole network, it would be necessary to install that piece of software in every host \cite{Hodo2017}, resulting in occupying resources and in depending on the reliability of the single host \cite{Liu2019}. \\ On the other hand a \gls{nids} can be considered as a strong deterrence against outside intruders, in fact it is placed at specific points on the network (usually deployed on major hosts or switches \cite{Liu2019}), monitoring the network links. The main disadvantage is its weakness in detecting attacks generated inside the network \cite{Hodo2017}, because of its nature, it monitors only specific network segments \cite{Liu2019}.
+As mentioned above, \glsplural{ids} can fall into two different categories: \gls{hids} was the first type to be implemented \cite{Debar1999} and consists in an application that, once installed on a host machine, analyzes and monitors all the network activities related to such computer. The traffic activities gathered are called \textit{audit trails}. There is one main advantage in using this typology of \gls{ids}: being able to detect threat before sending and receiving data. Its main disadvantage is that in order to monitor the whole network, it would be necessary to install that piece of software in every host \cite{Hodo2017}, resulting in occupying resources and in depending on the reliability of the single host \cite{Liu2019}. \\ On the other hand a \gls{nids} can be considered as a strong deterrence against outside intruders, in fact it is placed at specific points on the network (usually deployed on major hosts or switches), monitoring the network links. The main disadvantage is its weakness in detecting attacks generated inside the network \cite{Hodo2017}, because of its nature, it monitors only specific network segments \cite{Liu2019}.
 
 \subsubsection{Anomaly-based Detection}
 \label{subsubsec:anomaly-detection}
 
-This is a behavioural-based technique that observes changes in normal activity by building, over a period of time, a profile of the monitored system. The main advantage of this technique is that it allows for unknown attack detection (since it knows what normal traffic looks like). \\ According to \cite{Hodo2017}, there are two categories of Anomaly Detection: \textit{self-learning} and \textit{programmed}. The first one is also divided in two branches: \textit{time series model}, that considers a sequence of observations in order of succession occurring in intervals of uniformity, heavily relying on probability analysis, and machine learning; the latter  will be discussed in section \ref{sec:machine-learning}. \\ Instead, a programmed model (divided into \textit{threshold}, \textit{simple rule based} and \textit{statistical models}) consists of a system that needs an external entity for learning how to detect changes in behaviour.
+This is a behavioural-based technique that observes changes in normal activity by building, over a period of time, a profile of the monitored system. The main advantage of this technique is that it allows for unknown attack detection (since it knows what normal traffic looks like). \\ According to \cite{Hodo2017}, there are two categories of Anomaly Detection: \textit{self-learning} and \textit{programmed}. The first one is also divided in two branches: \textit{time series model}, that considers a sequence of observations in order of succession occurring in intervals of uniformity, heavily relying on probability analysis, and machine learning that will be discussed in section \ref{sec:machine-learning}. \\ Instead, a programmed model (divided into \textit{threshold}, \textit{simple rule based} and \textit{statistical models}) consists of a system that needs an external entity for learning how to detect changes in behaviour.
 
 \subsubsection{Signature-based Detection}
 \label{subsubsec:signature-detection}
@@ -231,7 +243,7 @@ Signature-based Detection uses a set of pre-defined rules to match the patterns 
 
 %See paper \cite{icissp18}, \cite{Khraisat2019} and \cite{Leevy2020}
 
-\textit{Datasets} are fundamental in the developing stage of an \gls{ids} for testing purposes and performance evaluation. As pointed out in \cite{icissp18}, many researchers struggle to find a reliable and comprehensive dataset, that is also up to date regarding the attacks used to generate it, since there are datasets that date back to 1998. The timeline below represents major dataset releases that were used in many different researches.
+\textit{Datasets} are fundamental in the developing stage of an \gls{ids} for testing purposes and performance evaluation. As pointed out in \cite{icissp18}, many researchers struggle to find a reliable and comprehensive dataset, that is also up to date regarding the attacks used to generate it, since there are datasets that date back to 1998. The timeline below represents major dataset releases, used in many different researches.
 
 \begin{figure}[h!]
     \begin{center}
@@ -251,12 +263,14 @@ Signature-based Detection uses a set of pre-defined rules to match the patterns 
     \end{center}
     \caption{Datasets timeline}
 \end{figure}
-The datasets relevant to this project, used for testing tools, algorithms\footnote{See chapter \ref{chap:methodology}} and understanding what particular feature can tell about the flow are: 
+
+\noindent The datasets relevant to this project, used for testing tools, algorithms\footnote{See chapter \ref{chap:methodology}} and understanding what a particular feature can tell about the flow are: 
 \begin{itemize}
-    \item[\faCaretRight] \textit{CICIDS2017}: developed in 2017 by the \textit{Canadian Institute for Cybersecurity}, it 
-    \item[\faCaretRight] \textit{KDD}
+    \item[\faCaretRight] \textit{CICIDS2017}: developed in 2017 by the \gls{cic}, it is a good trade-off between complexity and weight. It consists of benign and malicious traffic (labeled), obtained from a lab environment over 5 days and containing the threats disclosed in section \ref{subsec:malicious-traffic}. It has more than 80 traffic feature per flow, provided in a \glsxtrshort{csv}, together with the \gls{pcap} files containing the traffic dump. The total size of this dataset is around 50 GB;
+    \item[\faCaretRight] \textit{NSL-KDD}: this dataset is an improved version of the original KDD'99 \cite{Tavallaee2009} to address some of its shortcomings \cite{McHugh2000}. Although it can be anachronistic for the attacks considered since it is more than 20 years old, it is certainly useful and lightweight for understanding intrusion detection methods. The total size of this dataset is around 50 MB.
 \end{itemize}
-\lipsum[1-2]
+
+\noindent An alternative to take into consideration could be to create a custom dataset, acquiring traffic data wih software like \textit{Wireshark} \cite{WiresharkWebsite} and processing it to extract features and related statistics.
 
 %----------------------------------------------------
 % DETECTION RATES
