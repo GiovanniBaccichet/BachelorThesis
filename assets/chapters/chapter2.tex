@@ -219,15 +219,27 @@ An \gls{ids} is a piece of software put in place to monitor computer networks: b
 
 Different researchers have developed multiple classification representations of \glsplural{ids}: they can be classified by source of data (either host or network based, or both), by detection technique (anomaly based, signature based, or can use artificial intelligence). A good summary of the taxonomy and methodologies used can be \cite{Hodo2017} and \cite{Liu2019}, which cover also \gls{ml} applied to \gls{ids}.
 
+%----------------------------------------------------
+% HIDS AND NIDS
+%----------------------------------------------------
+
 \subsubsection{HIDS and NIDS}
 \label{subsubsec:hids-nids}
 
 As mentioned above, \glsplural{ids} can fall into two different categories: \gls{hids} was the first type to be implemented \cite{Debar1999} and consists in an application that, once installed on a host machine, analyzes and monitors all the network activities related to such computer. The traffic activities gathered are called \textit{audit trails}. There is one main advantage in using this typology of \gls{ids}: being able to detect threat before sending and receiving data. Its main disadvantage is that in order to monitor the whole network, it would be necessary to install that piece of software in every host \cite{Hodo2017}, resulting in occupying resources and in depending on the reliability of the single host \cite{Liu2019}. \\ On the other hand a \gls{nids} can be considered as a strong deterrence against outside intruders, in fact it is placed at specific points on the network (usually deployed on major hosts or switches), monitoring the network links. The main disadvantage is its weakness in detecting attacks generated inside the network \cite{Hodo2017}, because of its nature, it monitors only specific network segments \cite{Liu2019}.
 
+%----------------------------------------------------
+% ANOMALY BASED DETECTION
+%----------------------------------------------------
+
 \subsubsection{Anomaly-based Detection}
 \label{subsubsec:anomaly-detection}
 
 This is a behavioural-based technique that observes changes in normal activity by building, over a period of time, a profile of the monitored system. The main advantage of this technique is that it allows for unknown attack detection (since it knows what normal traffic looks like). \\ According to \cite{Hodo2017}, there are two categories of Anomaly Detection: \textit{self-learning} and \textit{programmed}. The first one is also divided in two branches: \textit{time series model}, that considers a sequence of observations in order of succession occurring in intervals of uniformity, heavily relying on probability analysis, and machine learning that will be discussed in section \ref{sec:machine-learning}. \\ Instead, a programmed model (divided into \textit{threshold}, \textit{simple rule based} and \textit{statistical models}) consists of a system that needs an external entity for learning how to detect changes in behaviour.
+
+%----------------------------------------------------
+% SIGNATURE-BASED DETECTION
+%----------------------------------------------------
 
 \subsubsection{Signature-based Detection}
 \label{subsubsec:signature-detection}
@@ -310,8 +322,43 @@ Equation \ref{eq:Bayesian-detection-rate} refers to the probability that an alar
 
 %See paper \cite{Khraisat2019} and \cite{Hodo2017} \\
 
-\lipsum[1-4] \\
-Discussed in \ref{sec:machine-learning}
+\glsreset{ml} \gls{ml} can be defined as computational methods using \textit{experience} to improve performance or to make accurate predictions \cite{Mohri2018}. Here experience has to be intended as information available to the learner.
+
+%----------------------------------------------------
+% LEARNING SCENARIOS
+%----------------------------------------------------
+
+\subsection{Learning scenarios}
+\label{subsec:learning-scenarios}
+
+Learning scenarios differ in the types of training data used, the order and the method by which it is received by the learner. Some common scenarios, useful for the treatment of the projects are:
+
+%----------------------------------------------------
+% SUPERVISED LEARNING
+%----------------------------------------------------
+
+\subsubsection{Supervised Learning}
+\label{subsubsec:supervised-learning}
+
+The learner receives a set of labeled examples as training data and makes predictions for all unseen points. This is the most common scenario associated with classification, regression and ranking problems \cite[p. 6]{Mohri2018}. This type of approach usually consists of two stages: \textit{training} and \textit{testing} \cite{Khraisat2019}. During the former, relevant features and classes are identified and then the algorithm learns from this data samples. Referring to this project, an \gls{ids} that uses supervised learning uses records containing a network or host data source and a label, namely, for example, \textit{normal} or \textit{malicious}. The goal, in this case, is to train a classifier using supervised learning technique, to learn the inherent relationship between the input data and the labelled output value.
+
+%----------------------------------------------------
+% UNSUPERVISED LEARNING
+%----------------------------------------------------
+
+\subsubsection{Unsupervised Learning}
+\label{subsubsec:unsupervised-learning}
+
+Unlike the previous scenario, the learner exclusively receives unlabeled training data, and makes predictions for all unseen points. It can be difficult to evaluate the performance of a learner using this methodology \cite[p. 6]{Mohri2018}. In unsupervised learning no labels are given, and instead the data is grouped automatically into various classes through the learning process: the \textit{k-means technique} is one of the most prevalent techniques of \textit{clustering analysis} (grouping objects into subsets with meaning in the context of a particular problem \cite{Annachhatre2015}) that aims to separate $n$ data objects into $k$ clusters. Each data object is assigned by the cluster with the nearest mean. The number of clusters is decided by the user, for example, each cluster can represent a particular behaviour to detect.
+
+%----------------------------------------------------
+% REINFORCEMENT LEARNING
+%----------------------------------------------------
+
+\subsubsection{Reinforcement Learning}
+\label{subsubsec:reinforcement-learning}
+
+In contrast with the other two scenarios, the reinforcement learning one involves multiple rounds where training and testing phases are intermixed. To collect information, the learner actively interacts with the environment and in some cases affects it, receiving an immediate reward for each action. The goal of the learner is to maximize his reward over a course of actions and iterations with the environment \cite[p. 7]{Mohri2018}. The learner is faced with the \textit{exploration versus exploitation dilemma}, since he must choose between exploring unknown action go gain more information and exploiting the information already collected. The autonomous agent must lean to perform a task by trial and error, without any guidance from the human operator \cite[p. 25]{Goodfellow2016}.
 
 %----------------------------------------------------
 % MACHINE LEARNING ALGORITHMS
@@ -320,7 +367,9 @@ Discussed in \ref{sec:machine-learning}
 \subsection{Machine Learning Algorithms}
 \label{subsec:ml-algorithms}
 
-\lipsum[1-6]
+\faEdit\quad \textbf{To be discussed with Supervisor: supervised vs reinforcement learning} \\
+
+\textcolor{dimgray}{\lipsum[1-4]}
 
 %----------------------------------------------------
 % DEEP LEARNING
@@ -329,7 +378,7 @@ Discussed in \ref{sec:machine-learning}
 \subsection{Deep Learning}
 \label{subsec:deep-learning}
 
-\lipsum[1-3]
+\textcolor{dimgray}{\lipsum[1-3]}
 
 %----------------------------------------------------
 % MACHINE LEARNING LIBRARIES
@@ -338,4 +387,4 @@ Discussed in \ref{sec:machine-learning}
 \subsection{Machine Learning Libraries}
 \label{subsec:ml-libraries}
 
-\lipsum[1]
+\textcolor{dimgray}{\lipsum[1]}

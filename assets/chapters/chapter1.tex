@@ -29,17 +29,22 @@ If provided with sufficient training data, machine learning algorithms can detec
 \section{Objectives}
 \label{sec:objectives}
 
-In order to solve the problems displayed above, it would be helpful to use machine learning algorithms to improve the accuracy of threats-detection, with flexible and dynamic monitoring of the network. This project can be broken into the following milestones:
+In order to solve the problems displayed above, it will be used machine learning to improve the accuracy of threats-detection, with flexible and dynamic monitoring of the network. This project can be broken into the following milestones:
 
 \begin{enumerate}
-    \item Setting up a virtualized environment for testing purposes (this has to be scalable, to represent a realistic scenario);
-    \item Choosing a \gls{sdn} Controller on which running, as an application, a monitoring software to gather data about network flow;
-    \item Identifying useful traffic features and extracting them with the chosen \gls{sdn} Controller;
-    \item Choosing a machine learning algorithm suitable for this use;
-    \item Performing machine learning classification of the above extracted traffic features to detect malicious traffic;
-    \item Evaluating the performance of the \gls{ids} using an appropriate dataset.
+    \item Develop a network monitor capable of saving traffic data:
+    \begin{itemize}
+        \item[\faCaretRight] Set up a virtualized environment for testing purposes, but still realistic;
+        \item[\faCaretRight] Choose a \gls{sdn} Controller on which running, as application, a monitoring software to gather data about network traffic
+        \item[\faCaretRight] Store the information collected;
+    \end{itemize}
+    \item Create a metering and analysis system that can classify, through machine learning, the data previously acquired:
+    \begin{itemize}
+        \item[\faCaretRight] Choose a machine learning algorithm suitable for this use;
+        \item[\faCaretRight] Perform machine learning classification of the above extracted traffic to detect threats to the security;
+        \item[\faCaretRight] Evaluate the performance of the \gls{ids} using an appropriate dataset.
+    \end{itemize}
 \end{enumerate}
-Practically the first three points concern building a network monitor capable of saving traffic data. Such data will be analyzed by the software developed in the last three points.
 
 %----------------------------------------------------
 % DELIMITATION
