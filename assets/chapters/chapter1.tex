@@ -15,8 +15,8 @@ Nowadays, with broad adoption of digital technologies, mass-communication repres
 
 The evolution of cyber-attack techniques, becoming more sophisticated than ever, poses a critical challenge in accurately and reliably detecting intrusions.\\ The first \gls{ids} was proposed in 1980 \cite{Andreson1980} and since then the industry has arisen, but modern \glsxtrshortpl{ids} aren't still perfect and suffer mainly from two problems:
 \begin{itemize}
-    \item[\faCaretRight] \textit{False-alarm rate}: generating too many alerts for nonthreatening situations raises the burden for security analysts, and can cause harmful attacks to be ignored. To build an effective and reliable \gls{ids}, it is mandatory to consider the \textit{detection rate} \cite{Axelsson2000} and \cite{Liu2019};
-    \item[\faCaretRight] \textit{Unknown attack detection}: attack variants and novel attacks emerge constantly and more and more frequently, hence the need of being able to detect unknown attacks. Some \glsplural{ids} rely on the signatures of known attacks and cannot identify new threats \cite{Hodo2017}.
+    \itemAR \textit{False-alarm rate}: generating too many alerts for nonthreatening situations raises the burden for security analysts, and can cause harmful attacks to be ignored. To build an effective and reliable \gls{ids}, it is mandatory to consider the \textit{detection rate} \cite{Axelsson2000} and \cite{Liu2019};
+    \itemAR \textit{Unknown attack detection}: attack variants and novel attacks emerge constantly and more and more frequently, hence the need of being able to detect unknown attacks. Some \glsplural{ids} rely on the signatures of known attacks and cannot identify new threats \cite{Hodo2017}.
 \end{itemize}
 Researchers in this filed aim at high detection accuracy and low false alarm rate. \\
 If provided with sufficient training data, \gls{ml} algorithms can detect both attack variants and novel ones \cite{Hodo2017}. Another perk brought by \gls{ml} models is that they do not rely heavily on domain knowledge, and so have a more lightweight design \cite{Khraisat2019}. \\ With that in mind, in order to achieve well grounded results, it is necessary to know which network features represent which attack \cite{Iglesias2015} and what data is sustainable for detecting certain types of threats. Furthermore a comprehensive analysis of machine learning algorithms is needed for identifying the most suitable one for this purpose \cite{Liu2019}, alongside the dataset needed for its training \cite{Sharafaldin2019}.
@@ -34,15 +34,15 @@ As mentioned above, \gls{ml} will be used, to improve accuracy and flexibility o
 \begin{enumerate}
     \item Develop a network monitor capable of saving traffic data:
     \begin{itemize}
-        \item[\faCaretRight] Set up a virtualized environment for testing purposes;
-        \item[\faCaretRight] Choose a \gls{sdn} Controller on which running, as application, a monitoring software to gather information about network traffic
-        \item[\faCaretRight] Store the data collected;
+        \itemAR Set up a virtualized environment for testing purposes;
+        \itemAR Choose a \gls{sdn} Controller on which running, as application, a monitoring software to gather information about network traffic
+        \itemAR Store the data collected;
     \end{itemize}
     \item Create a metering and analysis system that can classify, through \gls{ml}, the data previously acquired:
     \begin{itemize}
-        \item[\faCaretRight] Choose a \gls{ml} algorithm suitable for this use adn train it;
-        \item[\faCaretRight] Perform \gls{ml} classification of the above extracted traffic to detect threats to the security;
-        \item[\faCaretRight] Evaluate the performance of the \gls{ids} using an appropriate dataset.
+        \itemAR Choose a \gls{ml} algorithm suitable for this use adn train it;
+        \itemAR Perform \gls{ml} classification of the above extracted traffic to detect threats to the security;
+        \itemAR Evaluate the performance of the \gls{ids} using an appropriate dataset.
     \end{itemize}
 \end{enumerate}
 
