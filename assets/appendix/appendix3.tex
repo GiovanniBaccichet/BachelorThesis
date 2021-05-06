@@ -1,0 +1,69 @@
+\chapter{Repository Overview}
+\label{app:repository}
+
+This repository can be found on GitHub [ {\fontsize{7}{7}\faExternalLink*[regular]} \href{https://github.com/GiovanniBaccichet/themis/}{\texttt{github.com/GiovanniBaccichet/themis/}}]
+
+\textcolor{dimgray}{\lipsum[1]}
+
+\begin{figure}[h!]
+    \centering
+    \begin{forest}
+        for tree={
+          font=\ttfamily,
+          grow'=0,
+          folder,
+          l sep=20pt,
+          edge path={
+        \noexpand\path [draw, \forestoption{edge}] (!u.parent anchor) ++(1em,0) |- node[fill,inner sep=0pt] {} (.child anchor)\forestoption{edge label};
+      },
+          if n children=0{
+            before typesetting nodes={
+              tempdima=\iconsepfrompath+\iconsep+6*\touchsize,
+              content/.wrap value={\expandafter\hskip \foresteregister{tempdima}#1},
+            },
+            tikz={%
+              \pic [xshift=\iconsepfrompath] at (.west) {touch};
+            },
+          }{
+            if level=0{
+              tikz={%
+                \pic [xshift=\iconsepfrompath] at (.west) {mkdir};
+              },
+              before typesetting nodes={
+                tempdima=\iconsep+12*\mkdirsize,
+                content/.wrap value={\expandafter\hskip \foresteregister{tempdima}#1},
+              },
+            }{
+              tikz={%
+                \pic [xshift=\iconsepfrompath] at (.west) {mkdir};
+              },
+              before typesetting nodes={
+                tempdima=\iconsepfrompath+\iconsep+10*\mkdirsize,
+                content/.wrap value={\expandafter\hskip \foresteregister{tempdima}#1},
+              },
+            },
+          },
+        },
+        [themis, optional
+          [app
+            [\_\_init\_\_.py]
+            [flow.py]
+            [monitor.py]
+            [packet.py]
+          ]
+          [Jupyter Notebook
+            [FlowMeter Training.ipynb]
+            [NSL-KDD Training.ipynb]
+          ]
+          [PoC
+            [mininet\_install.sh]
+          ]
+          [requirements.txt]
+          [themis.py]
+        ]
+      \end{forest}
+    \caption{Structure of Source Code Repository}
+    \label{fig:repository-structure}
+\end{figure}
+
+\textcolor{dimgray}{\lipsum[1-5]}

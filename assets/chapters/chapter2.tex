@@ -28,7 +28,7 @@
 Network packets are encapsulated in either a \textit{TCP segment} or a \textit{UDP datagram}. Another relevant protocol that will be used is \gls{icmp}, belonging to the second layer (\textit{Internet Layer}): it is responsible for providing hosts with information about network problems. Because of the particular design of network architecture, in which one layer acts as an intermediate between the layer above and the one below, when trying to characterize the traffic, looking only at these latter protocols can be sufficient \cite{Iglesias2015}.
 
 %----------------------------------------------------
-% TRAFFIC MONITORING
+% NETWORK MONITORING
 %----------------------------------------------------
 
 \subsection{Network Monitoring}
@@ -278,17 +278,17 @@ Signature-based detection uses a set of pre-defined rules to match the patterns 
 
 \noindent The datasets relevant to this project, used for testing tools, algorithms\footnote{See chapter \ref{chap:methodology}} and understanding what a particular feature can tell about the flow are: 
 \begin{itemize}
-    \item[\faCaretRight] \textit{CICIDS2017}: developed in 2017 by the \gls{cic}, it is a good trade-off between complexity and weight. It consists of benign and malicious traffic (labeled), obtained from a lab environment over 5 days and containing the threats disclosed in section \ref{subsec:malicious-traffic}. It has more than 80 traffic feature per flow, provided in a \glsxtrshort{csv}, together with the \gls{pcap} files containing the traffic dump. The total size of this dataset is around 50 GB;
-    \item[\faCaretRight] \textit{NSL-KDD}: this dataset is an improved version of the original KDD'99 \cite{Tavallaee2009} to address some of its shortcomings \cite{McHugh2000}. Although it can be anachronistic for the attacks considered since it is more than 20 years old, it is certainly useful and lightweight for understanding intrusion detection methods. The total size of this dataset is around 50 MB.
+    \itemAR \textit{CICIDS2017}: developed in 2017 by the \gls{cic}, it is a good trade-off between complexity and weight. It consists of benign and malicious traffic (labeled), obtained from a lab environment over 5 days and containing the threats disclosed in section \ref{subsec:malicious-traffic}. It has more than 80 traffic feature per flow, provided in a \glsxtrshort{csv}, together with the \gls{pcap} files containing the traffic dump. The total size of this dataset is around 50 GB;
+    \itemAR \textit{NSL-KDD}: this dataset is an improved version of the original KDD'99 \cite{Tavallaee2009} to address some of its shortcomings \cite{McHugh2000}. Although it can be anachronistic for the attacks considered since it is more than 20 years old, it is certainly useful and lightweight for understanding intrusion detection methods. The total size of this dataset is around 50 MB.
 \end{itemize}
 
 \noindent An alternative to take into consideration could be to create a custom dataset, acquiring traffic data wih software like \textit{Wireshark} \cite{WiresharkWebsite} and processing it to extract features and related statistics.
 
 %----------------------------------------------------
-% DETECTION RATES
+% EVALUATION METRICS
 %----------------------------------------------------
 
-\subsection{Detection rates and base-rate fallacy}
+\subsection{Evaluation Metrics}
 \label{subsec:detection-rates}
 
 Understanding how accurate is an \gls{ids}, or a detection model is fundamental for making the right choices during the development. Moreover, understanding which parameters are important and which may only \textit{seem} to be important. These values can be obtained using some probability calculation and statistics. In \cite{Axelsson2000} the author used, with this purpose, the \textit{base-rate fallacy}, one of the cornerstones of Bayesian statistics. A similar concept was applied in \cite{Liu2019} for evaluating the effectiveness of a \gls{ml} algorithm. The parameters needed to evaluate the \textit{effectiveness} of an \gls{ids} are:
