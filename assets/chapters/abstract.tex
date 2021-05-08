@@ -4,9 +4,11 @@
 
 \vspace{1cm}
 
-\faEdit \quad \textbf{To be defined at the end of the project.} \\
-
-\textcolor{dimgray}{\lipsum[1-3]}
+\hfill\begin{minipage}{\dimexpr\textwidth-0.5cm}
+    Cyber security has become a matter of global interest and importance. In the last couple of years, especially with the pandemic situation going on, several attacks were performed against companies and critical structures. Since almost every intrusion is put in place through the network, understanding how to identify and report malicious activity in a lightweight, reliable way is vital. \\ This dissertation aims to use \textit{Machine Learning} (ML) techniques to detect and identify network attacks. For this purpose has been implemented an \textit{Intrusion Detection System} (IDS) capable of classifying particular behaviors of network traffic with a low \textit{false-positive rate}, keeping also an eye on users' privacy, which lately is becoming a concern. \\ The approach used in this project differs from traditional one because of the metrics employed in the monitoring process: instead of inspecting the payload of each network packet, the IDS observes its \textit{flow}. In this context a \textit{flow} is a tuple of 5 values (\textit{source IP}, \textit{destination IP}, \textit{source port}, \textit{destination port}, \textit{protocol}) from which a set of useful features can be extracted. The machine learning model then analyzes periodically a set of such features, highlighting abnormal behaviors. \\ The developed software was thought to be deployed with ease in a realistic scenario, and for this reason it relies on \textit{Software Defined Networking}, in particular on the open-source controller \textit{Ryu} for extracting network flows and detecting the network topology. This would also allow in the future to implement a scalable and proactive \textit{Intrusion Prevention System} (IPS). \\ To build the 
+    
+    The best performing machine learning algorithms were \textit{Decision Tree}, with an accuracy of $99\%$ and a \textit{F1 score} of $99\%$, and \textit{Random Forest}, with an accuracy of $99\%$ and a \textit{F1 score} of $99\%$. All the tested ML algorithms were trained on the \textit{CICIDS2017} dataset, for an unbiased comparison and implemented in Python in the final product. The testing was conducted using \textit{Mininet} as a prototyping testbed, creating a \textit{Proof of Concept} of the IDS created.
+    \end{minipage}
 
 \vspace{1cm}
 
@@ -28,10 +30,6 @@
 
 \vspace{1cm}
 
-\faEnvelope[regular] \quad \href{mailto:giovanni@baccichet.org}{\texttt{giovanni@baccichet.org}} \\
+\faEnvelope[regular]\; \href{mailto:giovanni@baccichet.org}{\texttt{giovanni@baccichet.org}} \\
 
-\faGlobeAmericas \quad\; \href{https://baccichet.org}{\texttt{baccichet.org}}
-
-%\faLinkedin \quad \href{https://www.linkedin.com/in/giovanni-baccichet/}{\texttt{Giovanni Baccichet}} \\
-
-%\faGithub \quad \href{https://github.com/GiovanniBaccichet}{\texttt{GiovanniBaccichet}}
+\faGlobeAmericas\; \href{https://baccichet.org}{\texttt{baccichet.org}}
