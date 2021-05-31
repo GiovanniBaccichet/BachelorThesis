@@ -59,11 +59,11 @@ There are different approaches to traffic analysis, but all of them rely on \tex
 \noindent Flow observation is what will be used in this project, considering its scalability with high speeds, its optimization in terms of storage and also taking into account modern concerns about privacy. \\ This architecture is composed of five steps:
 
 \begin{enumerate}
-    \item \textit{Observation}: gathering information about network traffic;
-    \item \textit{Metering}: this process identifies flows and calculate their statistics. From this point the original packet is not needed anymore;
-    \item \textit{Export}: after a certain period of time the processed flows are exported;
-    \item \textit{Collector}: in this stage metered flows are stored in order to be analyzed;
-    \item \textit{Analysis}: flows are analyzed using, in this case, \gls{ml}.
+    \item[\circled{1}] \textit{Observation}: gathering information about network traffic;
+    \item[\circled{2}] \textit{Metering}: this process identifies flows and calculate their statistics. From this point the original packet is not needed anymore;
+    \item[\circled{3}] \textit{Export}: after a certain period of time the processed flows are exported;
+    \item[\circled{4}] \textit{Collector}: in this stage metered flows are stored in order to be analyzed;
+    \item[\circled{5}] \textit{Analysis}: flows are analyzed using, in this case, \gls{ml}.
 \end{enumerate}
 
 \noindent In the next sections \ref{subsec:traffic-characterization} and \ref{subsec:malicious-traffic} steps 2 and 5 will be clarified.

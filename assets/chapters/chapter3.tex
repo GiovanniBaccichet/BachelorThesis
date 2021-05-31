@@ -1,7 +1,7 @@
 \chapter{Methodology}
 \label{chap:methodology}
 
-\lettrine[lines=3, findent=3pt, nindent=0pt]{C}{hapter} 3 deals with software and methodologies used for building the \gls{ids}. Starting with the concept behind the code, will then be discussed the scripts used, the pre-processing done to the chosen dataset, along with some statistics about the latter and the algorithms adopted in the \gls{ml} model training. In the final section will also be provided a \gls{poc} to demonstrate the functioning of the final product.
+\lettrine[lines=3, findent=3pt, nindent=0pt]{C}{hapter} 3 deals with software and methodologies used for building the \gls{ids}. Starting with the concept behind the code, will then be discussed the scripts used, the pre-processing done to the chosen dataset, along with some statistics about the latter and the algorithms adopted in the \gls{ml} model training. In the final section will also be provided a \gls{poc} to demonstrate the functioning of the final product. The workflow has revolved around Git as \gls{vcs}\footnote{See appendix \ref{app:repository}}.
 
 %----------------------------------------------------
 % CONCEPT
@@ -10,7 +10,16 @@
 \section{Concept}
 \label{sec:concept}
 
-\textcolor{dimgray}{\lipsum[1]}
+In this section will be explained the more abstract and high-level idea, on which the \gls{ids} was built. The concept is summarized by the following figure:
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[scale=0.32]{assets/figures/chapter3/concept-components.png}
+    \caption{Project's flowchart: from raw traffic to classified vector}
+    \label{fig:concept-components}
+\end{figure}
+
+\noindent The system can be used in both, \textit{synchronous} or \textit{asynchronous} mode. Proceeding top-down, the \textit{SDN Controller} serves the purpose of orchestrating the duplication of network traffic\footnote{See section \ref{subsubsec:traffic-duplication}} in order to create a \gls{pcap} file (so called \textit{traffic dump}) every 30 seconds. The latter will be than passed to the \textit{Analyzer}, which has the task of converting the traffic dump into a vector and pass it to the \gls{ml} model, in order to perform classification. The Analyzer can also get user uploaded files as input, and this allows the asynchronous operation. The \textit{\gls{ml} Classification} block consists of passing the previously mentioned vector to the trained \gls{rf} model and appending periodically the results to a \glsxtrshort{csv} file. In the final step, the \textit{Result Vector} can be visualized using the web \gls{gui}.
 
 %----------------------------------------------------
 % MODEL TRAINING
@@ -19,7 +28,7 @@
 \section{\gls{ml} Model Training}
 \label{sec:model-training}
 
-\textcolor{dimgray}{\lipsum[1]}
+This is the first stage of the implementation. For this purpose was used a \textit{Jupyter Notebook} to pre-process and visualize the raw data and then to train the \gls{ml} model. For reference, all the operations described were done on a MacBook Pro with 8 GB of RAM and on an iMac with 16 GB of RAM, both running macOS 11.4 (Big Sur). The datasets used, as discussed in \ref{subsec:datasets-for-evaluation} are NSL-KDD and CICIDS2017. The former was only used to become familiar with \gls{ml} and Jupyter Notebooks, the latter was the one strictly useful to the project.
 
 %----------------------------------------------------
 % PRE-PROCESSING

@@ -42,6 +42,12 @@
 \usepackage{tikz}
 \usetikzlibrary{positioning}
 
+\newcommand*\circled[1]{\tikz[baseline=(char.base)]{
+            \node[shape=circle,fill,inner sep=1pt,font=\fontsize{8}{8}\selectfont] (char) {\textcolor{white}{#1}};}}
+
+%\newcommand*\circled[1]{\tikz[baseline=(char.base)]{
+%            \node[shape=circle,draw,inner sep=1pt,font=\fontsize{8}{8}\selectfont] (char) {#1};}}
+
 % -----------------------------------------------------------------------
 %                              FONTAWESOME
 % -----------------------------------------------------------------------
