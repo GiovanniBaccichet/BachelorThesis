@@ -1,50 +1,43 @@
 \chapter{Methodology}
 \label{chap:methodology}
 
-\lettrine[lines=3, findent=3pt, nindent=0pt]{I}{n} this chapter \textcolor{dimgray}{\lipsum[1]}
+\lettrine[lines=3, findent=3pt, nindent=0pt]{C}{hapter} 3 deals with software and methodologies used for building the \gls{ids}. Starting with the concept behind the code, will then be discussed the scripts used, the pre-processing done to the chosen dataset, along with some statistics about the latter and the algorithms adopted in the \gls{ml} model training. In the final section will also be provided a \gls{poc} to demonstrate the functioning of the final product.
 
 %----------------------------------------------------
-% LAB ENVIRONMENT
+% CONCEPT
 %----------------------------------------------------
 
-\section{Lab Environment}
-\label{sec:environment}
+\section{Concept}
+\label{sec:concept}
 
 \textcolor{dimgray}{\lipsum[1]}
 
 %----------------------------------------------------
-% TECHNICAL MODEL
+% MODEL TRAINING
 %----------------------------------------------------
 
-\subsection{Technical Model}
-\label{subsec:technical-model}
+\section{\gls{ml} Model Training}
+\label{sec:model-training}
 
 \textcolor{dimgray}{\lipsum[1]}
 
 %----------------------------------------------------
-% IMPLEMENTATION
+% PRE-PROCESSING
 %----------------------------------------------------
 
-\section{Implementation}
-\label{sec:implemntation}
+\subsection{Pre-Processing}
+\label{subsec:pre-processing}
 
 \textcolor{dimgray}{\lipsum[1]}
 
 %----------------------------------------------------
-% CLASSIFIER
+% FEATURES AND STATISTICS
 %----------------------------------------------------
 
-\subsection{Anomaly Classifier}
-\label{subsec:classifier-implementation}
+\subsection{Features and Statistics}
+\label{subsec:features-statistics}
 
 \textcolor{dimgray}{\lipsum[1]}
-
-%----------------------------------------------------
-% PREPROCESSING
-%----------------------------------------------------
-
-\subsubsection{Dataset Preprocessing}
-\label{subsubsec:ac-preprocessing}
 
 \begin{figure}[h!]
     \centering
@@ -57,8 +50,8 @@
 % CLASSIFICATION
 %----------------------------------------------------
 
-\subsubsection{Classification}
-\label{subsubsec:ac-classification}
+\subsection{Classification}
+\label{subsec:classification}
 
 \textcolor{dimgray}{\lipsum[1]}
 
@@ -73,21 +66,22 @@
 % NETWORK MONITOR
 %----------------------------------------------------
 
-\subsection{Network Monitor}
-\label{subsec:monitor-implementation}
+\section{Network Monitor}
+\label{sec:monitor-implementation}
 
 \textcolor{dimgray}{\lipsum[1]}
 
 %----------------------------------------------------
-% FLOW IDENTIFICATION
+% ML INTEGRATION
 %----------------------------------------------------
 
-\subsubsection{Flow Identification}
-\label{subsubsec:nm-flow-id}
+\subsection{\gls{ml} Integration}
+\label{subsec:ml-integration}
 
 \textcolor{dimgray}{\lipsum[1]}
 
-\begin{code}[colback=white]{Monitor.py}
+\begin{figure}
+    \begin{code}[colback=white]{Monitor.py}
 if packet.getFwdID() in current_flows.keys():
 flow = current_flows[packet.getFwdID()]
 
@@ -106,37 +100,42 @@ elif packet.getFINFlag() or packet.getRSTFlag():
     del current_flows[packet.getFwdID()]
     del flow
 \end{code}
+\end{figure}
 
 \textcolor{dimgray}{\lipsum[1]}
 
 %----------------------------------------------------
-% FEATURE EXTRACTION
+% MONITORING PIPELINE
 %----------------------------------------------------
 
-\subsubsection{Flow Feature Extraction}
-\label{subsubsec:nm-flow-extraction}
+\subsection{Monitoring Pipeline}
+\label{subsec:monitoring-pipeline}
+
+\textcolor{dimgray}{\lipsum[1]}
 
 %----------------------------------------------------
-% INTRUSION DETECTION SYSTEM
+% POC
 %----------------------------------------------------
 
-\subsection{Intrusion Detection System}
-\label{subsec:ids-implementation}
+\section{Proof of Concept}
+\label{sec:poc}
+
+\textcolor{dimgray}{\lipsum[1-10]}
 
 %----------------------------------------------------
-% EVALUATION
+% TRAFFIC ACQUISITION
 %----------------------------------------------------
 
-\section{Evaluation}
-\label{sec:evaluation}
+\subsection{Traffic Acquisition}
+\label{subsec:traffic-acquisition}
 
-\textcolor{dimgray}{\lipsum[1-15]}
+\textcolor{dimgray}{\lipsum}
 
 %----------------------------------------------------
-% ATTACK SIMULATION
+% TOPOLOGY
 %----------------------------------------------------
 
-\subsection{Attack Simulation}
-\label{subsec:attack-simulation}
+\subsection{Topology}
+\label{subsec:topology}
 
-\textcolor{dimgray}{\lipsum[1-20]}
+\textcolor{dimgray}{\lipsum}
