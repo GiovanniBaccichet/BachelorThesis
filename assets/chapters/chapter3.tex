@@ -28,7 +28,7 @@ In this section will be explained the more abstract and high-level idea, on whic
 \section{\gls{ml} Model Training}
 \label{sec:model-training}
 
-This is the first stage of the implementation. For this purpose was used a \textit{Jupyter Notebook} to pre-process and visualize the raw data and then to train the \gls{ml} model. For reference, all the operations described were done on a MacBook Pro with 8 GB of RAM and on an iMac with 16 GB of RAM, both running macOS 11.4 (Big Sur). The datasets used, as discussed in \ref{subsec:datasets-for-evaluation} are NSL-KDD and CICIDS2017. The former was only used to become familiar with \gls{ml} and Jupyter Notebooks, the latter was the one strictly useful to the project.
+This is the first stage of the implementation. For this purpose was used a \textit{Jupyter Notebook} to pre-process and visualize the raw data and then to train the \gls{ml} model. For reference, all the operations described were done using a MacBook Pro with 8 GB of RAM and an iMac with 16 GB of RAM, both running macOS 11.4 (Big Sur). The datasets used, as discussed in \ref{subsec:datasets-for-evaluation}, are NSL-KDD and CICIDS2017. The former was only used to become familiar with \gls{ml} and Jupyter Notebooks in general, the latter was the one strictly useful to the project.
 
 %----------------------------------------------------
 % PRE-PROCESSING
@@ -37,7 +37,7 @@ This is the first stage of the implementation. For this purpose was used a \text
 \subsection{Pre-Processing}
 \label{subsec:pre-processing}
 
-\textcolor{dimgray}{\lipsum[1]}
+After the dataset choice, \textit{pre-processing} is very important in order to get consistent results regarding the training of the \gls{ml} model, and so the accuracy of the \gls{ids}. It is important to remove redundant or null records and unimportant features. The dataset used contains plenty records so \texttt{NaN}, \texttt{Null} and \texttt{Inf} values were dropped to clean the data the model will work with. Also columns containing non numerical values were dropped (\texttt{Flow\_ID}, \texttt{Source\_IP}, \texttt{Destination\_IP}, \texttt{Timestamp}), except the one containing the traffic category (\texttt{Label}). \\ In order to visualize and comprehend what is going on, Python's \textit{Pandas Library} \cite{PandasLibrary} was the choice. Printing the dataset's value counts helps to understand the ratio between normal traffic and malicious one. T A B L E \\ From the above table comes clear that there are traffic categories with insufficient data to train the model, and have to be dropped.
 
 %----------------------------------------------------
 % FEATURES AND STATISTICS
