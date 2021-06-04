@@ -37,7 +37,57 @@ This is the first stage of the implementation. For this purpose was used a \text
 \subsection{Pre-Processing}
 \label{subsec:pre-processing}
 
-After the dataset choice, \textit{pre-processing} is very important in order to get consistent results regarding the training of the \gls{ml} model, and so the accuracy of the \gls{ids}. It is important to remove redundant or null records and unimportant features. The dataset used contains plenty records so \texttt{NaN}, \texttt{Null} and \texttt{Inf} values were dropped to clean the data the model will work with. Also columns containing non numerical values were dropped (\texttt{Flow\_ID}, \texttt{Source\_IP}, \texttt{Destination\_IP}, \texttt{Timestamp}), except the one containing the traffic category (\texttt{Label}). \\ In order to visualize and comprehend what is going on, Python's \textit{Pandas Library} \cite{PandasLibrary} was the choice. Printing the dataset's value counts helps to understand the ratio between normal traffic and malicious one. T A B L E \\ From the above table comes clear that there are traffic categories with insufficient data to train the model, and have to be dropped.
+After the dataset choice, \textit{pre-processing} is very important in order to get consistent results regarding the training of the \gls{ml} model, and so the accuracy of the \gls{ids}. It is important to remove redundant or null records and unimportant features. The dataset used contains plenty records so \texttt{NaN}, \texttt{Null} and \texttt{Inf} values were dropped to clean the data the model will work with. Also columns containing non numerical values were dropped (\texttt{Flow\_ID}, \texttt{Source\_IP}, \texttt{Destination\_IP}, \texttt{Timestamp}), except the one containing the traffic category (\texttt{Label}). \\ In order to visualize and comprehend what is going on, Python's \textit{Pandas Library} \cite{PandasLibrary} was the choice. Printing the dataset's value counts helps to understand the ratio between normal traffic and malicious one. 
+
+\begin{table}[h]
+    \centering
+    \begin{tabular}{l|l}
+        \toprule 
+        Traffic Label & Entries \\
+        \midrule
+        \rowcolor{black!10} Benign & 2,271,320 \\
+        DoS Hulk & 230,124 \\
+        \rowcolor{black!10} Port Scan & 158,804 \\
+        DDoS & 128025 \\
+        \rowcolor{black!10} DoS GoldenEye & 10,293 \\
+        FTP-Patator & 7,935 \\
+        \rowcolor{black!10} SSH-Patator & 5,897 \\
+        DoS Slowloris & 5,796 \\
+        \rowcolor{black!10} DoS Slowhttptest & 5,499 \\
+        Bot & 1,956 \\
+        \rowcolor{black!10} Web Attack: Brute Force & 1,507 \\
+        Web Attack: XSS & 652 \\
+        \rowcolor{black!10} Infiltration & 36 \\
+        Web Attack: SQL Injection & 21 \\
+        \rowcolor{black!10} Heartbleed & 11 \\
+        \bottomrule
+    \end{tabular}
+    \caption{CICIDS2017 (ungrouped) Value Counts}
+    \label{tab:dataset-distribution}
+\end{table}
+
+\noindent From the above table comes clear that there are traffic categories with insufficient data to train the model, and have to be dropped (Infiltration, SQL Injection and Heartbleed). The remaining 12 labels were than grouped by relevance according to the table below, in order to generalize the categorization.
+
+\begin{table}[h]
+    \centering
+    \begin{tabular}{l|l|l}
+        \toprule 
+        Group Name & Labels & Entries \\
+        \midrule
+        \rowcolor{black!10} Benign & Benign & 2,271,320 \\
+        Dos & DoS Hulk, DoS GoldenEye, DoS Slowloris, DoS Slowhttptest &  251,712 \\
+        \rowcolor{black!10}Probe & Port Scan & 158,804 \\
+        DDoS & DDoS & 128,025 \\
+        \rowcolor{black!10}Brute Force & FTP-Patator, SSH-Patator,  & 13,832 \\
+        Web Attack & Web Attack: Brute Force, Web Attack: XSS & 2,159 \\
+        \rowcolor{black!10}Botnet & Bot & 1,956 \\
+        \bottomrule
+    \end{tabular}
+    \caption{CICIDS2017 (grouped) Value Counts}
+    \label{tab:grouped-dataset-distribution}
+\end{table}
+
+\noindent Another step of the pre-processing stage consisted in splitting the dataset. Being the latter explicitly unbalanced, since it consists in 5 days of traffic acquisition, each one dedicated to a specific attack type, it was performed a \textit{stratified split}, using Pandas' \texttt{train\_test\_split()}, which splits arrays or matrices into train and test subsets, maintaining the same ratio of classes across the subsets. As pointed out in \cite{Mozley2020}, a fundamental step in pre-processing is \textit{normalization}:
 
 %----------------------------------------------------
 % FEATURES AND STATISTICS
@@ -50,7 +100,7 @@ After the dataset choice, \textit{pre-processing} is very important in order to 
 
 \begin{figure}[h!]
     \centering
-    \includegraphics[scale=0.5]{assets/figures/chapter3/feature-correlation.png}
+    \includegraphics[scale=0.4]{assets/figures/chapter3/feature-correlation.png}
     \caption{Feature Correlation Matrix of CICIDS2017}
     \label{fig:feature-correlation}
 \end{figure}

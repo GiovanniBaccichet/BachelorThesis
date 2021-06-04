@@ -14,7 +14,7 @@
 
 \begin{figure}[h!]
     \centering
-    \includegraphics[scale=0.25]{assets/figures/chapter2/TCP_IP Stack.png}
+    \includegraphics[scale=0.3]{assets/figures/chapter2/TCP_IP Stack.png}
     \caption{Internet protocol suite: TCP/IP Stack}
     \label{fig:TCP/IP-stack}
 \end{figure}
@@ -123,49 +123,7 @@ Follows a brief introduction on \gls{sdn} as an industry standard, now widely av
 
 \begin{figure}[h!]
     \centering
-    \begin{tikzpicture}[scale=.45,every node/.style={minimum size=1cm},on grid]
-            
-        %slanting: production of a set of n 'laminae' to be piled up. N=number of grids.
-        \begin{scope}[
-                yshift=-83,every node/.append style={
-                yslant=0.5,xslant=-1},yslant=0.5,xslant=-1
-                ]
-            % opacity to prevent graphical interference
-            \fill[white,fill opacity=0.9] (0,0) rectangle (5,5);
-            \draw (2.4,2.5) node {\fontsize{40}{40} \faRandom};
-            \draw[black,very thick] (0,0) rectangle (5,5);%marking borders
-            %Idem as above, for the n-th grid:
-        \end{scope}
-            
-        \begin{scope}[
-            yshift=0,every node/.append style={
-                yslant=0.5,xslant=-1},yslant=0.5,xslant=-1
-                         ]
-            \fill[white,fill opacity=.9] (0,0) rectangle (5,5);
-            \draw[black,very thick] (0,0) rectangle (5,5);
-            \draw (2.4,2.5) node {\fontsize{40}{40} \faServer};
-        \end{scope}
-            
-        \begin{scope}[
-            yshift=90,every node/.append style={
-            yslant=0.5,xslant=-1},yslant=0.5,xslant=-1
-                         ]
-            \fill[white,fill opacity=.9] (0,0) rectangle (5,5);
-            \draw (2.4,2.5) node {\fontsize{40}{40} \faTv};
-            \draw[black,dashed] (0,0) rectangle (5,5);
-        \end{scope}
-    
-        %putting arrows and labels:
-        \draw[-latex,thick] (6,4) node[right]{$\mathsf{Control\; Plane}$}
-             to[out=180,in=90] (3.5,2.5);
-    
-        \draw[-latex,thick](6,1)node[right]{$\mathsf{Data\; Plane}$}
-             to[out=180,in=90] (3.5,-0.5);
-    
-        \draw[-latex,thick](6,7)node[right]{$\mathsf{Application\; Plane}$}
-            to[out=180,in=90] (3.5,5.5);
-        
-    \end{tikzpicture}
+    \includegraphics[scale=0.33]{assets/figures/chapter2/SDN Paradigm.png}
     \caption{\gls{sdn} paradigm}
     \label{fig:sdn-paradigm}
 \end{figure}
@@ -201,7 +159,7 @@ An \gls{ids} is a piece of software put in place to monitor computer networks: b
 
 \begin{figure}[h!]
         \centering
-        \includegraphics[scale=0.2]{assets/figures/chapter2/Intrusion Detection System Model.png}
+        \includegraphics[scale=0.24]{assets/figures/chapter2/Intrusion Detection System Model.png}
         \caption{Intrusion Detection System Model}
         \label{fig:IDS-model}
 \end{figure}
