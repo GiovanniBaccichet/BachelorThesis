@@ -105,7 +105,7 @@ As pointed out in \ref{subsec:traffic-characterization}, given a dataset, some f
 
 \begin{figure}[h!]
     \centering
-    \includegraphics[scale=0.99]{assets/figures/chapter3/features99.png}
+    \includegraphics[scale=1]{assets/figures/chapter3/features99.png}
     \caption{CICIDS2017 Features Weight}
     \label{fig:features-weight}
 \end{figure}
@@ -121,16 +121,16 @@ As pointed out in \ref{subsec:traffic-characterization}, given a dataset, some f
         \rowcolor{black!10} \texttt{Destination\_Port} & It follows a table  \\
         \texttt{Protocol} & DoS Hulk \\
         \rowcolor{black!10} \texttt{Flow\_Duration} & Port Scan \\
-        \texttt{Bwd\_Packet\_Length\_Max} & DDoS \\
-        \rowcolor{black!10} \texttt{Bwd\_Packet\_Length\_Mean} & FTP-Patator, SSH-Patator \\
-        \texttt{Bwd\_Packet\_Length\_Std} & Web Attack: Brute Force, Web Attack: XSS \\
-        \rowcolor{black!10} \texttt{Flow\_IAT\_Mean} & Bot \\
-        \texttt{Flow\_IAT\_Std} & DoS Hulk \\
-        \rowcolor{black!10} \texttt{Flow\_IAT\_Max} & Port Scan \\
-        \texttt{Flow\_IAT\_Min} & DDoS \\
-        \rowcolor{black!10} \texttt{Fwd\_IAT\_Total} & FTP-Patator, SSH-Patator \\
-        \texttt{Fwd\_IAT\_Mean} & Web Attack: Brute Force, Web Attack: XSS \\
-        \rowcolor{black!10} \texttt{Fwd\_IAT\_Std} & Bot \\
+        \texttt{Bwd\_Packet\_Length\_Max} & Maximum size of packet in backward direction \\
+        \rowcolor{black!10} \texttt{Bwd\_Packet\_Length\_Mean} & Mean size of packet in backward direction \\
+        \texttt{Bwd\_Packet\_Length\_Std} & Standard deviation size of packet in backward direction \\
+        \rowcolor{black!10} \texttt{Flow\_IAT\_Mean} & Mean time between two packets sent in the flow \\
+        \texttt{Flow\_IAT\_Std} & Standard deviation time between two packets sent in the flow \\
+        \rowcolor{black!10} \texttt{Flow\_IAT\_Max} & Maximum time between two packets sent in the flow \\
+        \texttt{Flow\_IAT\_Min} & Minimum time between two packets sent in the flow \\
+        \rowcolor{black!10} \texttt{Fwd\_IAT\_Total} & Total time between two packets sent in the forward direction \\
+        \texttt{Fwd\_IAT\_Mean} & Mean time between two packets sent in the forward direction \\
+        \rowcolor{black!10} \texttt{Fwd\_IAT\_Std} & Standard deviation time between two packets sent in the forward direction \\
         \texttt{Protocol} & DoS Hulk \\
         \rowcolor{black!10} \texttt{Flow\_Duration} & Port Scan \\
         \texttt{Bwd\_Packet\_Length\_Max} & DDoS \\
