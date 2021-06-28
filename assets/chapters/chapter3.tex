@@ -48,7 +48,7 @@ After the dataset choice, \textit{pre-processing} is very important in order to 
         \rowcolor{black!10} Benign & 2,271,320 \\
         DoS Hulk & 230,124 \\
         \rowcolor{black!10} Port Scan & 158,804 \\
-        DDoS & 128025 \\
+        DDoS & 128,025 \\
         \rowcolor{black!10} DoS GoldenEye & 10,293 \\
         FTP-Patator & 7,935 \\
         \rowcolor{black!10} SSH-Patator & 5,897 \\
@@ -78,7 +78,7 @@ After the dataset choice, \textit{pre-processing} is very important in order to 
         Dos & DoS Hulk, DoS GoldenEye, DoS Slowloris, DoS Slowhttptest &  251,712 \\
         \rowcolor{black!10}Probe & Port Scan & 158,804 \\
         DDoS & DDoS & 128,025 \\
-        \rowcolor{black!10}Brute Force & FTP-Patator, SSH-Patator,  & 13,832 \\
+        \rowcolor{black!10}Brute Force & FTP-Patator, SSH-Patator  & 13,832 \\
         Web Attack & Web Attack: Brute Force, Web Attack: XSS & 2,159 \\
         \rowcolor{black!10}Botnet & Bot & 1,956 \\
         \bottomrule
@@ -87,7 +87,12 @@ After the dataset choice, \textit{pre-processing} is very important in order to 
     \label{tab:grouped-dataset-distribution}
 \end{table}
 
-\noindent Another step of the pre-processing stage consisted in splitting the dataset. Being the latter explicitly unbalanced, since it consists in 5 days of traffic acquisition, each one dedicated to a specific attack type, it was performed a \textit{stratified split}, using Pandas' \texttt{train\_test\_split()}, which splits arrays or matrices into train and test subsets, maintaining the same ratio of classes across the subsets. As pointed out in \cite{Mozley2020}, a fundamental step in pre-processing is \textit{normalization}:
+\noindent Another step of the pre-processing stage consisted in splitting the dataset. Being the latter explicitly unbalanced, since it consists in 5 days of traffic acquisition, each one dedicated to a specific attack type, it was performed a \textit{stratified split}, using Pandas' \texttt{train\_test\_split()}, which splits arrays or matrices into train and test subsets, maintaining the same ratio of classes across the subsets. As pointed out in \cite{Mozley2020}, a fundamental step in pre-processing is \textit{normalization}: since the scale of the feature value differs, to ensure that each one of them contribute the same amount to the classification, it is mandatory to bring them to the same range. In Python it is possible to do a \textit{min-max normalization} using \texttt{scikit-learn} library \cite{ScikitWebsite}. This kind of operation re-scales the dataset's features using the following equation:
+
+\begin{equation}
+    x\prime=\frac{x-\min\{x\}}{\max\{x\}-\min\{x\}}
+\end{equation}
+In which $x$ is the feature's original value.
 
 %----------------------------------------------------
 % FEATURES AND STATISTICS
@@ -96,14 +101,54 @@ After the dataset choice, \textit{pre-processing} is very important in order to 
 \subsection{Features and Statistics}
 \label{subsec:features-statistics}
 
-\textcolor{dimgray}{\lipsum[1]}
+As pointed out in \ref{subsec:traffic-characterization}, given a dataset, some features are more relevant than others. In order to achieve an higher accuracy and generalization and saving time in the training stage, the right move was using only the most relevant features in such a fashion that if the feature value and the class label are independent, then the elder is not relevant in the classification process, therefore it has to be dropped. The library of choice was \texttt{scikit-learn} \cite{ScikitWebsite}, and in particular it's \texttt{SelectKBest} function: this was helpful for selecting the top 40 (in this particular case) most dependent features of the dataset, using the \textit{chi-squared} algorithm. The chart below represents a plot of the features score mentioned earlier: to be noticed is the dotted line, which represents the $99\%$ mark, meaning that all the features above are not so relevant for the purpose.
 
 \begin{figure}[h!]
     \centering
-    \includegraphics[scale=0.4]{assets/figures/chapter3/feature-correlation.png}
-    \caption{Feature Correlation Matrix of CICIDS2017}
-    \label{fig:feature-correlation}
+    \includegraphics[scale=0.99]{assets/figures/chapter3/features99.png}
+    \caption{CICIDS2017 Features Weight}
+    \label{fig:features-weight}
 \end{figure}
+
+\noindent Table \ref{tab:features-weight} contains a list, along with the respective description of all the selected features, to summarize what was used in the training stage. For further data and statistics, see appendix \ref{app:net-features}.
+
+\begin{table}[h]
+    \centering
+    \begin{tabular}{l|l}
+        \toprule 
+        Feature & Description \\
+        \midrule
+        \rowcolor{black!10} \texttt{Destination\_Port} & It follows a table  \\
+        \texttt{Protocol} & DoS Hulk \\
+        \rowcolor{black!10} \texttt{Flow\_Duration} & Port Scan \\
+        \texttt{Bwd\_Packet\_Length\_Max} & DDoS \\
+        \rowcolor{black!10} \texttt{Bwd\_Packet\_Length\_Mean} & FTP-Patator, SSH-Patator \\
+        \texttt{Bwd\_Packet\_Length\_Std} & Web Attack: Brute Force, Web Attack: XSS \\
+        \rowcolor{black!10} \texttt{Flow\_IAT\_Mean} & Bot \\
+        \texttt{Flow\_IAT\_Std} & DoS Hulk \\
+        \rowcolor{black!10} \texttt{Flow\_IAT\_Max} & Port Scan \\
+        \texttt{Flow\_IAT\_Min} & DDoS \\
+        \rowcolor{black!10} \texttt{Fwd\_IAT\_Total} & FTP-Patator, SSH-Patator \\
+        \texttt{Fwd\_IAT\_Mean} & Web Attack: Brute Force, Web Attack: XSS \\
+        \rowcolor{black!10} \texttt{Fwd\_IAT\_Std} & Bot \\
+        \texttt{Protocol} & DoS Hulk \\
+        \rowcolor{black!10} \texttt{Flow\_Duration} & Port Scan \\
+        \texttt{Bwd\_Packet\_Length\_Max} & DDoS \\
+        \rowcolor{black!10} \texttt{Bwd\_Packet\_Length\_Mean} & FTP-Patator, SSH-Patator \\
+        \texttt{Bwd\_Packet\_Length\_Std} & Web Attack: Brute Force, Web Attack: XSS \\
+        \rowcolor{black!10} \texttt{Flow\_IAT\_Mean} & Bot \\
+        \bottomrule
+    \end{tabular}
+    \caption{CICIDS2017 Features Weight and Description (most relevant to least relevant)}
+    \label{tab:features-weight}
+\end{table}
+
+%\begin{figure}[h!]
+%    \centering
+%    \includegraphics[scale=0.5]{assets/figures/chapter3/heatmap-all.png}
+%    \caption{CICIDS2017 Feature Correlation Matrix (heatmap)}
+%    \label{fig:feature-heatmap}
+%\end{figure}
 
 %----------------------------------------------------
 % CLASSIFICATION
@@ -113,13 +158,6 @@ After the dataset choice, \textit{pre-processing} is very important in order to 
 \label{subsec:classification}
 
 \textcolor{dimgray}{\lipsum[1]}
-
-\begin{figure}[h!]
-    \centering
-    \includegraphics[scale=0.6]{assets/figures/chapter3/traffic_distribution.png}
-    \caption{Traffic Distribution}
-    \label{fig:traffic-distribution}
-\end{figure}
 
 %----------------------------------------------------
 % NETWORK MONITOR
