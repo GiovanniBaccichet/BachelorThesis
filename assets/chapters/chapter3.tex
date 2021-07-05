@@ -212,10 +212,10 @@ The \textit{network monitor} is a key component of the system: it is used in bot
 \subsection{Flow Analysis}
 \label{subsec:flow-analysis}
 
-The \textit{Transport Layer} protocols relevant for the implementation are \gls{tcp} and \gls{udp}. As considered in \cite{Mozley2020}, \gls{udp} flows terminate on \textit{time out}, while \gls{udp} ones end with a \textit{time out}, but may also terminate via the FIN flag (last packet from sender), or RST flag (connection reset). The first packet in the flow is assumed to be in the forward direction, defining the source and, accordingly, the destination directions. \\ The code snippet below (from \texttt{app/Analyzer.py}) displays how packet reception is handled: if said packet doesn't belong to an existing flow, a new flow instance is created, otherwise it is necessary to check if it is a terminating packet. All current flows are stored in a dictionary, with the keys being the \textit{flow-ID}, and the value is the reference to the flow object. The features previously discussed are calculated after the flow is terminated and then passed to the classified in a \textit{feature vector}.
+The \textit{Transport Layer} protocols relevant for the implementation are \gls{tcp} and \gls{udp}. As considered in \cite{Mozley2020}, \gls{udp} flows terminate on \textit{time out}, while \gls{udp} ones end with a \textit{time out}, but may also terminate via the FIN flag (last packet from sender), or RST flag (connection reset). The first packet in the flow is assumed to be in the forward direction, defining the source and, accordingly, the traffic directions. \\ The code snippet below (from \texttt{app/Analyzer.py}) displays how packet reception is handled: if a packet doesn't belong to an existing flow, a new flow instance is created, otherwise it is necessary to check if it is a terminating packet. All current flows are stored in a dictionary, with the keys being the \textit{flow-ID}, and the value is the reference to the flow object. The features previously discussed are calculated after the flow is terminated and then passed to the classified in a \textit{feature vector}. The Python library of choice for the feature extraction was \textit{Scapy} \cite{ScapyLibrary}: a packet manipulation program able to decode packets of a wide number of protocols. The retrieved information was then passed to the \textit{statistics} module in order to calculate features to include in the vector.
 
 \begin{figure}[h!]
-    \begin{code}[colback=white]{Flow Creation}
+    \begin{code}[colback=white]{\texttt{Analyzer.py}}
 if packet.getFwdID() in current_flows.keys():
   flow = current_flows[packet.getFwdID()]
   if (packet.getTimestamp() - flow.getFlowStartTime()) > FlowTimeout:
@@ -253,10 +253,10 @@ else:
 \end{code}
 \end{figure}
 
-\lipsum[1-2]
+
 
 \begin{figure}[h!]
-    \begin{code}[colback=white]{Analyzer.py}
+    \begin{code}[colback=white]{\texttt{Analyzer.py}}
 def classify(features):
 print('Classifying...')
 # Preprocess
@@ -307,6 +307,13 @@ return feature_string + classification
 
 \textcolor{dimgray}{\lipsum}
 
+\begin{figure}[h!]
+    \centering
+    \includegraphics[scale=0.35]{assets/figures/chapter3/gui-mockup.png}
+    \caption{Webapp asd}
+    \label{fig:gui-mockup}
+\end{figure}
+
 %----------------------------------------------------
 % TRAFFIC ACQUISITION
 %----------------------------------------------------
@@ -314,7 +321,7 @@ return feature_string + classification
 \subsection{Traffic Acquisition}
 \label{subsec:traffic-acquisition}
 
-\textcolor{dimgray}{\lipsum}
+\textcolor{dimgray}{\lipsum[1-6]}
 
 %----------------------------------------------------
 % TOPOLOGY
@@ -327,7 +334,7 @@ return feature_string + classification
 
 \begin{figure}[h!]
     \centering
-    \includegraphics[scale=0.28]{assets/figures/chapter3/PoC_topology.png}
+    \includegraphics[scale=0.27]{assets/figures/chapter3/PoC_topology.png}
     \caption{Proof of Concept - Lab Topology}
     \label{fig:poc-topology}
 \end{figure}
