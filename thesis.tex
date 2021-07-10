@@ -16,10 +16,14 @@
     \input{assets/title}
     \clearpage
 
+    \blankpage % remove before exporting
+
     % ABSTRACT
 
     \input{assets/chapters/abstract}
     \clearpage
+
+    \blankpage % remove before exporting
 
     % TOC
 
@@ -49,19 +53,12 @@
 
     \input{assets/chapters/chapter5}
 
-    % APPENDICES
-
-    \appendix
     \newpage
-    \pagenumbering{roman}
-    \part*{Appendices}
-    \input{assets/appendix/appendix1}
-    \input{assets/appendix/appendix2}
-    \input{assets/appendix/appendix3}
 
     % BIBLIOGRAPHY
 
     \bibliographystyle{plain}
+    \pagenumbering{roman}
     \bibliography{assets/bibliography}
 
     % ACRONYMS

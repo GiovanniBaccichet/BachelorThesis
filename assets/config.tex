@@ -49,6 +49,18 @@
 %            \node[shape=circle,draw,inner sep=1pt,font=\fontsize{8}{8}\selectfont] (char) {#1};}}
 
 % -----------------------------------------------------------------------
+%                          BLANK PRINTING PAGES
+% -----------------------------------------------------------------------
+
+\usepackage{afterpage}
+
+\newcommand\blankpage{%
+    \null
+    \thispagestyle{empty}%
+    \addtocounter{page}{-1}%
+    \newpage}
+
+% -----------------------------------------------------------------------
 %                              FONTAWESOME
 % -----------------------------------------------------------------------
 
@@ -160,9 +172,9 @@
 \usepackage[most]{tcolorbox}
 \usepackage{inconsolata}
 
-\newtcblisting[auto counter]{code}[2][]{sharp corners, 
+\newtcblisting[auto counter]{code}[3][]{sharp corners, 
     fonttitle=\texttt, colframe=dimgray, listing only, 
-    listing options={basicstyle=\ttfamily,language=Python,firstnumber=92,title={TEST}}, 
+    listing options={basicstyle=\small\ttfamily,language=Python,firstnumber=#3}, 
     title={\fontsize{7}{7}\faTerminal}\; #2, #1}
 
 % -----------------------------------------------------------------------
