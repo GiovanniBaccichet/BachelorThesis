@@ -6,7 +6,7 @@
 \section{ML Model Evaluation}
 \label{sec:ml-model-evaluation}
 
-The classifier of choice, as discussed in \ref{subsec:classification}, was \textit{Random Forest}. Considering the final model used in the \gls{poc}
+The classifier of choice, as discussed in \ref{subsec:classification}, was \textit{Random Forest}. It is particularly interesting to observe the results of the training with ungrouped labels versus the one with grouped labels: the differences in terms of precision and F1 score are remarkable.
 
 \begin{figure}[h!]
    \centering
@@ -20,7 +20,7 @@ The classifier of choice, as discussed in \ref{subsec:classification}, was \text
 
 \begin{figure}[h!]
    \centering
-   \includegraphics[scale=0.6]{assets/figures/chapter3/grouped_confusion_matrix.png}
+   \includegraphics[scale=0.62]{assets/figures/chapter3/ungrouped_confusion_matrix.png}
    \caption{Confusion Matrix of the Random Forest model trained using CICIDS2017 dataset with ungrouped features}
    \label{fig:ungrouped-confusion-matrix}
 \end{figure}
