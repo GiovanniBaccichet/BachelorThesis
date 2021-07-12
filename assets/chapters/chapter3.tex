@@ -112,7 +112,7 @@ As pointed out in \ref{subsec:traffic-characterization}, given a dataset, some f
     \label{fig:features-weight}
 \end{figure}
 
-\noindent To understand which features were used in the training stage, table \ref{tab:features-weight} provides a brief summary. All definitions are drawn from the \textit{CICFlowMeter} project discussed in \cite{icissp17}. \\
+\noindent To understand which features were used in the training stage, table \ref{tab:features-weight} provides a brief summary. All definitions are drawn from the \textit{CICFlowMeter} project \cite{icissp17}. \\
 
 \begin{table}[h!]
     \centering
@@ -319,8 +319,8 @@ While designing the \gls{gui}, the one feature to keep in mind was expandability
 % TOPOLOGY
 %----------------------------------------------------
 
-\subsection{Topology and Testing}
-\label{subsec:topology}
+\subsection{Testing Scenarios}
+\label{subsec:testing-scenarios}
 
 Some of the perks of \gls{sdn} paradigm are scalability and flexibility: figure \ref{fig:poc-topology} represents a very simple network topology created using \textit{mininet} to test the \gls{ids} capabilities on a realistic environment. A remarkable fact is that both the controller and the \gls{ids}, as shown, can be in a remote location: this feature is appealing and relevant for modern applications since they both can be virtualized in the cloud, allowing for more flexibility at a lower cost.
 
@@ -338,7 +338,15 @@ Another way of testing the \gls{ids} capabilities is by using its \textit{asynch
 
 \subsection{Penetration Testing Tools}
 \label{subsec:pentesting-tools}
-\textcolor{dimgray}{\lipsum[1]}
+To test the \gls{ids} capability of classifying the attacks it was trained on, it is necessary to generate some malicious traffic. Most of the tools used for penetration testing are open source and available for the major Linux distribution (and for this reason also usable with \textit{mininet}). 
+\par The creators of Kali Linux \cite{KaliLinuxWebsite} released a website containing a list of all the tools used in their system \cite{KaliToolsWebsite}, along with a description and some examples. Some of the most useful tools for the project are:
+
+\begin{itemize}
+  \itemAR \textit{NMap}: a free and open source utility for network discovery and security auditing;
+  \itemAR \textit{Patator}: multi-purpose brute-forcer, with a modular design and a flexible usage. It supports different modules, including \gls{ssh} and \gls{ftp};
+  \itemAR \textit{SlowHTTPTest}: highly configurable tool that simulates some Application Layer Denial of Service attacks;
+  \itemAR \textit{SlowLoris}: type of \gls{dos} tool that allows a single machine to take down another machine's web server with minimal bandwidth and side effects on unrelated services and ports.
+\end{itemize}
 
 % \subsubsection{Stress Testing}
 % \label{subsubsec:stress-testing}
