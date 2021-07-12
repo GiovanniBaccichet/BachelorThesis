@@ -271,6 +271,28 @@ It is now possible to make some assumptions on what the ideal \gls{ids} should a
 \end{equation}
 Equation \ref{eq:Bayesian-detection-rate} refers to the probability that an alarm really indicates an intrusion: it is noticeable now that the limiting-factor in an \gls{ids} is not the ability to identify the behavior correctly as a threat, rather its ability to suppress false alarms: the factor concerning the detection rate is overshadowed by the factor governing the false alarm rate, since intrusions don't happen so often, $P(I)<P(\neg I)$, but it is also true that $P(I)+P(\neg I)=1$; giving some examples for further explanation, assuming $P(I)=2\cdot 10^{-5}\Rightarrow P(\neg I)=0.99998$, and now the discrepancy is evident \cite{Axelsson2000}. \\ This demonstrates that, during the development of an \gls{ids} it is necessary to keep an eye on the \gls{fp} \textit{rate}, in order to be as effective as possible.
 
+\paragraph{Machine Learning Performance Measures} As for the \gls{ml} algorithm testing (discussed in section \ref{subsec:ml-algorithms}), the metrics to judge the reliability of a trained model are:
+
+\begin{itemize}
+    \itemAR \textit{Accuracy}: represents how many correct predictions were made compared to the total number of predictions.
+    \begin{equation}
+        \text{Accuracy}=\frac{TP+TN}{TP+TN+FP+FN}
+    \end{equation}
+    \itemAR \textit{Precision}: ratio of correctly predicted positive observations to the total predicted positive observations.
+    \begin{equation}
+        \text{Precision}=\frac{TP}{TP+TN}
+    \end{equation}
+    \itemAR \textit{Recall}: ratio of correctly predicted positive observations to the all observations in actual class.
+    \begin{equation}
+        \text{Recall}=\frac{TP}{TP+FN}
+    \end{equation}
+    \itemAR \textit{F1 Score}: the weighted average of \textit{precision} and \textit{recall}. It represents a fundamental metric to consider when dealing with uneven class distributions.
+    \begin{equation}
+        \text{F1 Score}=\frac{2\cdot \text{Precision}\cdot \text{Recall}}{\text{Precision}+ \text{Recall}}
+    \end{equation}
+    \itemAR \textit{Confusion Matrix}: table layout that allows visualization of the performance of an algorithm, in particular each row of the matrix represents the instances in an actual class while each column represents the instances in a predicted class. The name stems from the fact that it makes it easy to see whether the system is confusing two classes.
+\end{itemize}
+
 %----------------------------------------------------
 % MACHINE LEARNING
 %----------------------------------------------------
@@ -325,18 +347,31 @@ In contrast with the other two scenarios, the reinforcement learning one involve
 \subsection{Machine Learning Algorithms}
 \label{subsec:ml-algorithms}
 
-\faEdit\quad \textbf{To be discussed with Supervisor: supervised vs reinforcement learning} \\
+As for the \gls{ml} algorithm to use, very good references for comparing different classifiers in this particular field of study are \cite{icissp17} and \cite{Mozley2020}. The algorithms analysed in said papers are listed here, along with a brief description, in order to understand the choice of \gls{rf} as the one to use in the implementation, discussed in chapter \ref{chap:methodology}. Due to the complexity of the subject, \textit{Deep Learning} algorithm will not be discussed.
 
-\textcolor{dimgray}{\lipsum[1-4]}
+\subsubsection{Support Vector Machine}
+\label{subsubsec:svm}
 
-%----------------------------------------------------
-% DEEP LEARNING
-%----------------------------------------------------
+\gls{svm} is an approach for classification developed in the 1990's. It is a generalization of a simple and intuitive classifier, the so called \textit{maximal margin classifier}. \gls{svm} is a supervised learning, linear classifier that relies on the concept of \textit{hyperplane} and the division of feature vectors into different classes.
+\par As stated in \cite[p. 341]{James2014}, \glsplural{svm} are intended for the binary classification setting in which there are two classes, so it isn't the best fit for the purpose of the project. In \cite{Mozley2020} the comparison between different classifiers shows the bad performance of the one described in this section.
 
-\subsection{Deep Learning}
-\label{subsec:deep-learning}
+\subsubsection{K Nearest Neighbors}
+\label{subsubsec:knn}
 
-\textcolor{dimgray}{\lipsum[1-3]}
+\gls{knn} is a supervised learning algorithm that works on the assumption that data points of the same class will exist nearby. Given $K>0$ (integer) and a test observation $x_0$, the \gls{knn} identifies the $K$ points in the training data that are closest to the observation made, $x_0$; it then calculates the conditional probability for the said point to belong to the same class, using the \textit{Bayes Theorem}. Lastly, the observation $x_0$ is assigned to the class with the highest probability \cite[p. 39]{James2014}.
+\par Although the performance evaluation conducted in \cite{Mozley2020} highlighted remarkable results for this classifier, it was not the most suitable for the job.
+
+\subsubsection{Decision Tree}
+\label{subsubsec:dt}
+
+A \gls{dt} can be applied to both regression and classification problems. It is a supervised learning model simple and useful: in order to make a prediction for a given observation, it is necessary to begin at the root (first node) and, after comparing the input features with the labelled classes, the input will be assigned to particular branches rather than others. The process is repeated until the leaf node, where the classification ends and the label is assigned to the observation \cite[p. 307]{James2014}.
+\par The performance evaluation returned excellent results for the \gls{dt} algorithm \cite{Mozley2020}, which lead the analysis of \gls{rf} algorithm, which is made of a multitude of decision trees at training time.
+
+\paragraph{Random Forest}
+\label{par:rf}
+
+A \glsfirst{rf} aggregates and produces the mean of the results of several \glsplural{dt} trained from different random subsets of the trining data \cite[p. 324]{James2014}. The class label is assigned by majority voting amongst the trees. \glsplural{rf} are frequently used as \textit{black box} models in businesses, as they generate reasonable predictions across a wide range of data while requiring little configuration.
+\par This was the best performing algorithm of the bench, achieving an \textit{accuracy} of $99.91\%$ and \textit{F1 Score} of $97.59\%$ \cite{Mozley2020}. For this reason, and for the ease of implementation, this classifier was chosen for the realization of the \gls{ids}.
 
 %----------------------------------------------------
 % MACHINE LEARNING LIBRARIES
@@ -345,4 +380,12 @@ In contrast with the other two scenarios, the reinforcement learning one involve
 \subsection{Machine Learning Libraries}
 \label{subsec:ml-libraries}
 
-\textcolor{dimgray}{\lipsum[1]}
+In this section are listed the main libraries, concerning \gls{ml}, used in this project. They were necessary for importing the chosen dataset and tweaking the selected features, then normalizing their values and training the classifier. In addition to that, they were used to generate the charts used in chapter \ref{chap:results}. \\ In order of use, the libraries are:
+
+\begin{itemize}
+    \itemAR \textit{Pandas}: a fast, powerful, flexible and easy to use open source data analysis and manipulation tool, built on top of the Python programming language \cite{PandasLibrary}. It allows for dataset visualization and features selection;
+    \itemAR \textit{Scikit-Learn}: it is a simple and efficient set of tools for predictive data analysis, easy to use and remarkable in various contexts \cite{ScikitWebsite}. This library is built on top of \textit{NumPy}, \textit{SciPy} and \textit{MatPlotLib}. It is open source, licensed under BSD license;
+    \itemAR \textit{Seaborn}: it is a Python data visualization library based on matplotlib. It provides a high-level interface for drawing attractive and informative statistical graphics \cite{SeabornLibrary}. As mentioned above, it was used to generate, for example, confusion matrix plotted using a Seaborn \textit{heatmap} function.
+\end{itemize}
+
+\noindent In chapter \ref{chap:methodology} other libraries and Python modules, used in the implementation, will be disclosed.
