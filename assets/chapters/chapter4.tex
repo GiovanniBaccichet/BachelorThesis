@@ -1,7 +1,7 @@
 \chapter{Results}
 \label{chap:results}
 
-\lettrine[lines=4, findent=3pt, nindent=0pt]{I}{n} this chapter results and performance will be discussed. Starting with some metrics about the trained \gls{ml} model, with a particular focus on grouped and ungrouped features, it will then be presented the behavior of the implemented \gls{ids} on real life attacks, taking into consideration what was pointed out in section \ref{subsec:delimitation} about the delimitation of the project. Anyway, the theoretical results achieved remain valid and for this reason form the focus of the chapter.
+\lettrine[lines=4, findent=3pt, nindent=0pt]{I}{n} this chapter results and performance will be discussed. Starting with some metrics about the trained \gls{ml} model, with particular emphasis on grouped and ungrouped features, it will then be presented the behavior of the implemented \gls{ids} on real life attacks, taking into consideration what was pointed out in section \ref{subsec:delimitation} about the delimitation of the project. The theoretical results are the focus of the chapter, while real attacks were performed to test the functionality of the system.
 
 \section{ML Model Evaluation}
 \label{sec:ml-model-evaluation}
@@ -18,8 +18,8 @@ The classifier of choice, as discussed in \ref{subsec:classification}, was \gls{
 \subsection{Ungrouped Labels Model}
 \label{subsec:ungrouped-training}
 
-Considering the model trained with all the labels available in the dataset, performance is expected to be lower that the one trained on grouped features. Three metrics will be considered for the comparison of the features (\textit{precision}, \textit{recall} and \textit{F1 score}).
-\par Table \ref{tab:ungrouped-metrics} shows the metrics achieved by the model, regarding each feature. The average \textit{precision} is $90.9253\%$, the average \textit{recall} is $88.1413\%$ and the average \textit{F1 Score} is $89.2012\%$, with an overall \textit{accuracy} of $99.8636\%$. The training time was $802.53$ seconds, using the hardware listed in \ref{sec:model-training} and training the model on a Jupyter Notebook using Python \texttt{3.9.4} (64-bit).
+Considering the model trained with all the labels available in the dataset, performance was expected to be lower that the one trained on grouped features. Three metrics will be considered for the comparison of the features (\textit{precision}, \textit{recall} and \textit{F1 score}).
+\par Table \ref{tab:ungrouped-metrics} shows the metrics achieved by the model, regarding each feature. The average \textit{precision} is $90.9253\%$, the average \textit{recall} is $88.1413\%$ and the average \textit{F1 Score} is $89.2012\%$, with an overall \textit{accuracy} of $99.8636\%$. The training time was $802.53$ seconds, using the hardware listed in \ref{sec:model-training} and training the model on a Jupyter Notebook running on Python \texttt{3.9.4} (64-bit).
 
 \begin{table}[h!]
    \centering
@@ -45,7 +45,7 @@ Considering the model trained with all the labels available in the dataset, perf
    \label{tab:ungrouped-metrics}
 \end{table}
 
-Although the shown results are not bad, they are certainly lowered by the \texttt{Bot}, \texttt{Brute Force} and \texttt{XSS} attacks classification, and this comes also clear form the \textit{confusion matrix} displayed in figure \ref{fig:ungrouped-confusion-matrix}: some of the \texttt{Bot} attacks are classified as \texttt{Benign}, some of the \texttt{Brute Force} ones are classified as \texttt{XSS} and vice versa; the problem is the proportion in which the classification goes wrong (\textit{e.g.: DoS Hulk has been classified 46005 times correctly and 137 times as benign traffic, while XSS has been classified 39 times correctly and 66 times as a brute force attack}). A possible explanation regarding the poor classification performance on these attacks can be maybe that features that correctly identify said attacks are not in the \textit{transport layer}, but in the \textit{application} one, such as particular characters used, or cookie payload, for example.
+The shown results are certainly lowered by the \texttt{Bot}, \texttt{Brute Force} and \texttt{XSS} attacks classification; this comes also clear form the \textit{confusion matrix} displayed in figure \ref{fig:ungrouped-confusion-matrix}: some of the \texttt{Bot} attacks are classified as \texttt{Benign}, some of the \texttt{Brute Force} ones are classified as \texttt{XSS} and vice versa; the problem is the proportion in which the classification goes wrong (\textit{e.g.: DoS Hulk has been classified 46005 times correctly and 137 times as benign traffic, while XSS has been classified 39 times correctly and 66 times as a brute force attack}). A possible explanation regarding the poor classification performance on these attacks can the following: features that correctly identify said attacks are not in the \textit{transport layer}, but in the \textit{application} one, such as particular characters used, or cookie payload, for example.
 
 \begin{figure}[h!]
    \centering
@@ -57,8 +57,8 @@ Although the shown results are not bad, they are certainly lowered by the \textt
 \subsection{Grouped Labels Model}
 \label{subsec:grouped-training}
 
-Due to the variability of network attacks, always changing and updating, it is more important to identify the category of said malicious traffic, rather than the specific tool used to generate it. For this reason the features concerning specific attacks were grouped: this helps with generalization and reliability of the trained model, since the classification takes place observing different attacks, all with the same purpose (\textit{e.g. Information Gathering, Stress Testing, etc.}).
-\par Contrary to the considerations made in section \ref{subsec:ungrouped-training} for the ungrouped training, the expectations for the model trained with the grouped labels are higher. For obvious reasons the metrics used are the same used in the previous section (\textit{precision}, \textit{recall} and \textit{F1 Score}); the model is presumed to perform significantly better then the first one.
+Due to the variability of network attacks, always changing and updating, it is more important to identify the category of malicious traffic, rather than the specific tool used to generate it. For this reason the features concerning specific attacks were grouped: this helps with generalization and reliability of the trained model, since the classification can take place observing different attacks, with the same purpose (\textit{e.g. DoS GoldenEye, DoS SlowHTTPTest and DoS Hulk are different variants of the same attack}).
+\par Contrary to the considerations made in section \ref{subsec:ungrouped-training} for the ungrouped training, the expectations for this model were higher. For obvious reasons the metrics used are the same used in the previous section (\textit{precision}, \textit{recall} and \textit{F1 Score}).
 \par As highlighted in section \ref{subsec:pre-processing}, the 12 traffic types can be grouped into 7 bigger categories, leading to less labels to predict and, hopefully, less classification errors. Table \ref{tab:grouped-metrics} displays the metrics for each of said categories. The average \textit{precision} is $97.9827\%$, the average \textit{recall} is $95.9278\%$ and the average \textit{F1 Score} is $96.8638\%$, with an overall \textit{accuracy} of $99.9089\%$. The training time, using the same hardware and software as before, was completed in $760.18$ seconds.
 \par From the data collected, the model has performed as expected: all three metrics increased significantly while the training time has decreased, resulting in a better performing model.
 
@@ -81,7 +81,7 @@ Due to the variability of network attacks, always changing and updating, it is m
    \label{tab:grouped-metrics}
 \end{table}
 
-Comparing the \textit{confusion matrix} shown in figure \ref{fig:grouped-confusion-matrix} to the previous one, it is clear that some problems regarding the \texttt{Botnet} label remain, in fact it is the only one performing poorly also in this scenario. As discussed above, one way to fix this is by changing methodology, observing the network traffic at \textit{application level}, modifying the considered features, since from \textit{transport level} botnet's traffic can blend with the normal traffic, resulting in being classified as \texttt{Benign}.
+Comparing the \textit{confusion matrix} shown in figure \ref{fig:grouped-confusion-matrix} to the previous one, it is clear that some problems regarding the \texttt{Botnet} label remain, in fact it is the only one performing poorly also in this scenario. As discussed above, one way to fix this could be by changing methodology: observing the network traffic at \textit{application level}, modifying the considered features, since from \textit{transport level} botnet's traffic can blend with the normal traffic, resulting in being classified as \texttt{Benign}.
 
 \begin{figure}[h!]
    \centering
@@ -131,5 +131,5 @@ The implemented \gls{ids} has been tested to check its behavior with real life a
    \caption{Generated attacks and associated prediction}
    \label{tab:attack-predictions}
 \end{table}
-\textit{ISCX-Bot-2014} is a dataset used to check, as the name suggests, if the \gls{ids} was able to detect botnets. It was provided by the \textit{Canadian Institute for Cybersecurity} \cite{Beigi2014}, just like the dataset used for the training.
+\textit{ISCX-Bot-2014} is a dataset used to check, as the name suggests, if the \gls{ids} was able to detect botnets. It is provided by the \textit{Canadian Institute for Cybersecurity} \cite{Beigi2014}, just like the dataset used for the training.
 \par No further analysis were conducted, since the only purpose of this test was to check the functionality of the \gls{poc}, not to recalculate the metrics discussed in section \ref{subsec:grouped-training}.

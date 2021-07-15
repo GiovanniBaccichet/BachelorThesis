@@ -16,11 +16,11 @@ Nowadays, with broad adoption of digital technologies, mass-communication repres
 The evolution of cyber-attack techniques, becoming more sophisticated than ever, poses a critical challenge in accurately and reliably detecting intrusions.\\ The first \gls{ids} was proposed in 1980 \cite{Andreson1980} and since then the industry has arisen, but modern \glsxtrshortpl{ids} aren't still perfect and suffer mainly from two problems:
 \begin{itemize}
     \itemAR \textit{False-alarm rate}: generating too many alerts for nonthreatening situations raises the burden for security analysts, and can cause harmful attacks to be ignored. To build an effective and reliable \gls{ids}, it is mandatory to consider the \textit{detection rate} \cite{Axelsson2000} and \cite{Liu2019};
-    \itemAR \textit{Unknown attack detection}: attack variants and novel attacks emerge constantly and more and more frequently, hence the need of being able to detect unknown attacks. Some \glsplural{ids} rely on the signatures of known attacks and cannot identify new threats \cite{Hodo2017}.
+    \itemAR \textit{Unknown attack detection}: attack variants and novel attacks are created constantly and more and more frequently, hence the need of being able to detect unknown attacks. Some \glsplural{ids} rely on the signatures of known attacks and cannot identify new threats \cite{Hodo2017}.
 \end{itemize}
-Researchers in this filed aim at high detection accuracy and low false alarm rate. \\
-If provided with sufficient training data, \gls{ml} algorithms can detect both attack variants and novel ones \cite{Hodo2017}. Another perk brought by \gls{ml} models is that they do not rely heavily on domain knowledge, and so have a more lightweight design \cite{Khraisat2019}. 
-\par With that in mind, in order to achieve well grounded results, it is necessary to know which network features represent which attack \cite{Iglesias2015} and what data is sustainable for detecting certain types of threats. Furthermore a comprehensive analysis of machine learning algorithms is needed for identifying the most suitable one for this purpose, alongside the dataset needed for its training \cite{Sharafaldin2019}.
+Researchers in this filed aim at an high detection accuracy, with a low false alarm rate. \\
+If provided with sufficient training data, \gls{ml} algorithms can detect both attack variants and novel ones. Another perk brought by \gls{ml} models is that they do not rely heavily on domain knowledge, resulting in a more lightweight design \cite{Khraisat2019}. 
+\par With that in mind, in order to achieve well grounded results, it is necessary to know which network features represent which attack \cite{Iglesias2015} and what data is sustainable for detecting certain types of threats. Furthermore a comparison between machine learning algorithms is needed to identify the most suitable one for this purpose, alongside the dataset needed for its training \cite{Sharafaldin2019}.
 
 %----------------------------------------------------
 % PREVIOUS WORK
@@ -29,7 +29,8 @@ If provided with sufficient training data, \gls{ml} algorithms can detect both a
 \section{Previous Work}
 \label{sec:prev-work}
 
-The application of \gls{ml} to \glsplural{ids} is becoming more and more frequent. Several papers deals with the subject, using different algorithms, datasets and methodologies. A good overview of previous works regarding algorithms and methodologies can be found in \textit{Machine Learning and Deep Learning Methods for Intrusion Detection Systems} \cite{Liu2019}, \textit{Shallow and Deep Networks Intrusion Detection Systems} \cite{Hodo2017} and \textit{Analysis of Network Features for Anomaly Detection} \cite{Iglesias2015}. A fundamental paper concerning the datasets used for the \gls{ml} model training is \textit{Toward Generating a New Intrusion Detection Dataset and Intrusion Traffic Characterization} \cite{icissp17}, in which \textit{CICIDS2017}, the dataset discussed in section \ref{subsec:datasets-for-evaluation} and used chapter \ref{chap:methodology}, is presented. 
+The application of \gls{ml} to \glsplural{ids} is becoming more and more frequent. Several papers deals with the subject, using different algorithms, datasets and methodologies. A good overview of previous works regarding algorithms and methodologies can be found in \textit{Shallow and Deep Networks Intrusion Detection Systems} \cite{Hodo2017}, \textit{Analysis of Network Features for Anomaly Detection} \cite{Iglesias2015} and \textit{Machine Learning and Deep Learning Methods for Intrusion Detection Systems} \cite{Liu2019}.
+\par A fundamental paper concerning the datasets used for the \gls{ml} model training is \textit{Toward Generating a New Intrusion Detection Dataset and Intrusion Traffic Characterization} \cite{icissp17}, in which the \textit{CICIDS2017} dataset is presented (discussed in section \ref{subsec:datasets-for-evaluation} and used chapter \ref{chap:methodology}). 
 
 %----------------------------------------------------
 % CHALLENGES
@@ -38,7 +39,7 @@ The application of \gls{ml} to \glsplural{ids} is becoming more and more frequen
 \section{Challenges}
 \label{sec:objectives}
 
-As mentioned above, \gls{ml} will be used, to improve accuracy and flexibility of the \glsfirst{ids}, in combination with a network monitor. This project can be broken into the following milestones:
+\gls{ml} will be used, to improve accuracy and flexibility of an \glsfirst{ids}, in combination with a network monitor. This project can be broken into the following milestones:
 
 \begin{enumerate}
     \item Develop a network monitor capable of saving traffic data:
@@ -72,7 +73,7 @@ This study is limited to the detection of the attacks included in \textit{CICIDS
 \section{Project Description}
 \label{sec:proj-description}
 
-The central premise of this work is to implement a \gls{nids} which relies on \glsfirst{ml} to provide accurate classification, maintain a lightweight architecture.
-\par In chapter \ref{chap:state-of-the-art} the background theory needed for this project is provided, along with the choice of tools, the overall requirements and the adopted methodology. Starting from the basics, regarding how the network works (\ref{sec:network-traffic}), the focus is shifted to traffic duplication in order to understand how to effectively acquire what to analyze (\ref{subsec:network-monitoring}). It is then considered how to characterize what just gathered (\ref{subsec:traffic-characterization}). Finally, an overview of \glsplural{ids}' taxonomy (\ref{subsec:taxonomy-ids}) is presented to understand how to integrate the system into the environment, along with a discussion regarding \gls{ml} approaches (\ref{sec:machine-learning}).
-\par In chapter \ref{chap:methodology} the details with respect to the development of the \gls{ids} are discussed, taking into account what was disclosed in previous works. This chapter is split into four different sections: the first one deals with the concept adopted in the development stage (\ref{sec:concept}), followed by an explanation of the \gls{ml} model trained (\ref{sec:model-training}), and by an description of the network monitor implementation (\ref{sec:monitor-implementation}). Lastly, a \gls{poc} showing the capabilities of the \gls{ids} (\ref{sec:poc}). 
+The central premise of this work is to implement a \gls{nids} which relies on \gls{ml} to provide accurate classification, maintaining a lightweight architecture.
+\par In chapter \ref{chap:state-of-the-art} the background theory is provided, along with the choice of tools, the overall requirements and the adopted methodology. Starting from the basics, regarding how a network works (\ref{sec:network-traffic}), the focus is shifted to traffic duplication in order to understand how to effectively acquire what to analyze (\ref{subsec:network-monitoring}). It is then considered how to characterize what was just gathered (\ref{subsec:traffic-characterization}). Lastly, an overview of \glsplural{ids}' taxonomy (\ref{subsec:taxonomy-ids}) is presented to understand how to integrate the system into the environment, along with a discussion regarding \gls{ml} approaches (\ref{sec:machine-learning}).
+\par In chapter \ref{chap:methodology} the details with respect to the development of the \gls{ids} are discussed, taking into account what was disclosed in previous works. This chapter is split into four different sections: the first one deals with the concept adopted in the development stage (\ref{sec:concept}), followed by an explanation of the \gls{ml} model trained (\ref{sec:model-training}), and by a description of the network monitor implementation (\ref{sec:monitor-implementation}). A \gls{poc} showing the capabilities of the \gls{ids} (\ref{sec:poc}) is presented at the end of the chapter. 
 \par The results of the dissertation are then presented in chapter \ref{chap:results}, accompanied by charts and tables, and reviewed in chapter \ref{chap:conclusions}. 
