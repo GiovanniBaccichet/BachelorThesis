@@ -26,12 +26,12 @@
   <p align="center">
     Information and Communications Engineering @ University of Trento
     <br />
-    <a href=""><strong>Download PDF »</strong></a>
+    <a href="https://github.com/GiovanniBaccichet/bachelor-thesis/releases/tag/1.0"><strong>Download PDF »</strong></a>
     <br />
     <br />
-    <a href="">Giovanni Baccichet</a>
+    <a href="https://baccichet.org">Giovanni Baccichet</a>
     |
-    <a href="">Prof. Fabrizio Granelli</a>
+    <a href="https://www.granelli-lab.org/">Prof. Fabrizio Granelli</a>
   </p>
 </p>
 
